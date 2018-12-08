@@ -2,6 +2,7 @@
 | 接口名称 | 接口地址 | 备注 |
 | ------ | ------ | ------ |
 | 登录 | [``/api/backstage/login``](#登录) | 登录接口，无需鉴权 |
+| 注销 | [``/api/backstage/logout``](#注销) | 注销接口 |
 | 创建比赛 | [``/api/backstage/race/created``](#创建比赛) | 创建比赛，新建比赛 |
 | 获取比赛列表 | [``/api/backstage/race/list``](#获取比赛列表) | 获取比赛列表 |
 | 修改比赛状态 | [``/api/backstage/race/change``](#比赛信息) | 获取比赛列表 |
