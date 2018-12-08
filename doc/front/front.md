@@ -10,3 +10,17 @@
 | 投注历史 | [``/api/front/race/bet/history``]() | 获取比赛投注历史 |
 
 ### 登录
+
+接口地址: ``/api/front/login``
+
+入参: 
+``username:string, password:string``
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+可能的异常: 当用户名密码不正确或用户被限制登录等非正常登录情况，status非0切包含错误话术msg
