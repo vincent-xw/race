@@ -1,1 +1,28 @@
-### race 后台接口文档
+## race 后台接口文档
+| 接口名称 | 接口地址 | 备注 |
+| ------ | ------ | ------ |
+| 登录 | [``/api/backstage/login``](#登录) | 登录接口，无需鉴权 |
+| 创建比赛 | [``/api/backstage/race/created``](#创建比赛) | 创建比赛，新建比赛 |
+| 获取比赛列表 | [``/api/backstage/race/list``](#获取比赛列表) | 获取比赛列表 |
+| 修改比赛状态 | [``/api/backstage/race/change``](#比赛信息) | 获取比赛列表 |
+| 新增联赛 | [``/api/backstage/league/created``](#新增联赛) | 新增联赛 |
+| 联赛列表 | [``/api/backstage/league/list``](#联赛列表) | 联赛列表 |
+| 新增代理 | [``/api/backstage/agent/created``](#新增代理) | 新增代理 |
+| 代理列表 | [``/api/backstage/agent/list``](#代理列表) | 代理列表 |
+| 报表统计 | [``/api/backstage/statistics/list``](#报表统计) | 获取比赛报表统计 |
+
+### 登录
+
+接口地址: ``/api/backstage/login``
+
+入参: 
+``username:string, password:string``
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+可能的异常: 当用户名密码不正确或用户被限制登录等非正常登录情况，status非0切包含错误话术msg
