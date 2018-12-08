@@ -7,3 +7,11 @@ module.exports.passport = {
     enable: true,
     package: 'egg-passport'
 };
+module.exports.passportLocal = {
+    enable: true,
+    package: 'egg-passport-local'
+};
+exports.routerPlus = {
+    enable: true,
+    package: 'egg-router-plus'
+};

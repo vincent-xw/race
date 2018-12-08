@@ -2,10 +2,16 @@
 const Service = require('egg').Service;
 
 class UserService extends Service {
-    async find(uid) {
-        // 假如 我们拿到用户 id 从数据库获取用户详细信息
-        const user = await this.app.mysql.get('user');
-        return {user};
+    /*
+     * 根据登录名查找用户
+     * @param {String} loginName 登录名
+     * @return {Promise[user]} 承载用户的 Promise 对象
+     */
+    getUserByLoginName(loginName) {
+        const query = {
+            loginname: new RegExp('^' + loginName + '$', 'i')
+        };
+        return this.ctx.model.User.findOne(query).exec();
     }
 }
 module.exports = UserService;

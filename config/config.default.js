@@ -9,10 +9,20 @@ module.exports = appInfo => {
             json(err, ctx) {
                 // json hander
                 ctx.body = {
-                    message: 'error'
+                    status: '500',
+                    message: '请求异常，请稍后再试'
                 };
                 ctx.status = 500;
             }
+        },
+        security: {
+            csrf: {
+                enable: false
+            }
+        },
+        passportLocal: {
+            usernameField: 'username',
+            passwordField: 'password'
         }
     };
     // use for cookie sign key, should change to your own and keep security

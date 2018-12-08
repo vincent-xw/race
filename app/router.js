@@ -4,12 +4,15 @@
  */
 'use strict';
 module.exports = app => {
+    const apiFrontRouter = app.router.namespace('/api/front');
+    // const apiBackStageRouter = app.router.namespace('/api/backstage');
     const {
-        router,
-        controller
+        controller,
+        passport
     } = app;
     // 前台Router
     // 登录校验
-    router.post('/api/front/login', app.passport.authenticate('local'));
-    router.get('/api/front/logout', controller.home.info);
+    apiFrontRouter.post('/', passport.authenticate('local'), controller.home.info);
+    apiFrontRouter.post('/login', passport.authenticate('local'));
+    apiFrontRouter.get('/logout', controller.home.info);
 };
