@@ -4,7 +4,8 @@ module.exports = () => {
         if (ctx.status === 404 && !ctx.body) {
             if (ctx.acceptJSON) {
                 ctx.body = {
-                    error: 'Not Found'
+                    status: 500,
+                    error: 'not found'
                 };
             } else {
                 ctx.body = '<h1>Page Not Found</h1>';
