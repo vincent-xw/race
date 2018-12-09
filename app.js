@@ -3,13 +3,14 @@ const LocalStrategy = require('passport-local').Strategy;
 module.exports = app => {
     const localHandler = async (ctx, {
         username,
-        password
+        password,
+        type
     }) => {
-        const getUser = username => ctx.service.user.getUserByLoginName(username);
+        const getUser = username => ctx.service.user.getUserByLoginName(username, type);
         const existUser = await getUser(username);
 
         // 用户不存在
-        if (!existUser) {
+        if (!existUser.user) {
             return null;
         }
         const equal = password === existUser.user.password;
@@ -29,7 +30,8 @@ module.exports = app => {
         const user = {
             provider: 'local',
             username,
-            password
+            password,
+            type: /front/.test(req.url) ? 'front' : 'backstage'
         };
         app.passport.doVerify(req, user, done);
     }));

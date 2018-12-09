@@ -2,7 +2,7 @@
 
 const Controller = require('../core/base.controller');
 
-class FrontController extends Controller {
+class BackstageController extends Controller {
     // 登录获取基本信息
     info(callback) {
         const user = this.ctx.user;
@@ -19,4 +19,4 @@ class FrontController extends Controller {
 
 }
 
-module.exports = FrontController;
+module.exports = BackstageController;

@@ -5,7 +5,7 @@ const Controller = require('egg').Controller;
 class BaseController extends Controller {
     init() {
         this.initData = {
-            status: 200,
+            status: 0,
             msg: ''
         };
     }
@@ -25,6 +25,7 @@ class BaseController extends Controller {
             status: 403,
             msg: '请重新登录'
         };
+        this.ctx.status = 403;
     }
     notFound(msg) {
         msg = msg || 'not found';
