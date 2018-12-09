@@ -18,6 +18,13 @@ class BaseController extends Controller {
             }
         };
     }
+    failed(data) {
+        this.ctx.body = {
+            status: 500,
+            msg: '',
+            ...data
+        };
+    }
     needAuth() {
         this.init();
         this.ctx.body = {

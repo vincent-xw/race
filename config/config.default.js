@@ -23,9 +23,9 @@ module.exports = appInfo => {
         passportLocal: {
             usernameField: 'username',
             passwordField: 'password'
-        },
+        }
     };
-    config.auth_cookie_name = 'node_club';
+    config.auth_cookie_name = 'race';
     // use for cookie sign key, should change to your own and keep security
     config.keys = appInfo.name + '_1542903490839_3707';
 

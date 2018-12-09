@@ -15,7 +15,7 @@ class UserService extends Service {
         else {
             user = await this.app.mysql.get('user', {username: loginName});
         }
-        return {user};
+        return user;
     }
 }
 module.exports = UserService;
