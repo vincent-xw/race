@@ -45,7 +45,6 @@ class FrontController extends Controller {
     info() {
         let user = this.ctx.request.user;
         if (user) {
-            await this.ctx.service.user.findByUser()
             this.success(user);
         }
         else {
