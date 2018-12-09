@@ -12,7 +12,11 @@ module.exports = app => {
     } = app;
     // 前台Router
     // 登录校验
-    apiFrontRouter.post('/', passport.authenticate('local'), controller.home.info);
-    apiFrontRouter.post('/login', passport.authenticate('local'));
-    apiFrontRouter.get('/logout', controller.home.info);
+    apiFrontRouter.post('/login', passport.authenticate('local', {successRedirect: '/api/front/authCallback'}));
+    // 鉴权成功回调
+    apiFrontRouter.all('/authCallback', controller.front.info);
+    
+    // 
+
+    apiFrontRouter.get('/logout', controller.front.info);
 };

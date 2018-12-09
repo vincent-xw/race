@@ -18,6 +18,14 @@ class BaseController extends Controller {
             }
         };
     }
+    needAuth() {
+        this.init();
+        this.ctx.body = {
+            ...this.initData,
+            status: 403,
+            msg: '请重新登录'
+        };
+    }
     notFound(msg) {
         msg = msg || 'not found';
         this.ctx.throw(404, msg);
