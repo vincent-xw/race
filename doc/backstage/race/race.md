@@ -100,7 +100,7 @@
 |参数名称|说明|
 ----|----|
 |race_id|string,比赛编号|
-|league_id|string,比赛编号,联赛编号|
+|league_id|string,联赛编号|
 |race_time|timpstamp,比赛时间|
 |created_time|timpstamp,创建时间|
 |all_bet|int,总投注|
