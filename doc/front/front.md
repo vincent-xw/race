@@ -2,6 +2,7 @@
 | 接口名称 | 接口地址 | 备注 |
 | ------ | ------ | ------ |
 | 登录 | [``/api/front/login``](./basic/basic.md#登录) | 登录接口，无需鉴权 |
+| 注销 | [``/api/front/logout``](./basic/basic.md#登录) | 注销接口 |
 | 修改密码 | [``/api/front/resetpwd``](./basic/basic.md#修改密码) | 修改密码，只允许修改当前登录账号的密码 |
 | 联赛列表 | [``/api/front/league/list``](./league/league.md#联赛列表) | 获取联赛列表 |
 | 比赛列表 | [``/api/front/race/list``](./race/race.md#比赛列表) | 获取比赛列表 |

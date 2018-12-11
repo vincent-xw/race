@@ -10,7 +10,9 @@
         "horse_info": [
             {
                 "horse_name":"string",
-                "horse_status":0
+                "horse_status":0,
+                "head_limit": 95,
+                "foot_limit": 95
             }
         ]
     }
@@ -23,6 +25,8 @@
 |horse_info||y|数组，马匹信息，里面的每个item都有一个对象，创建只需要传名称及状态|
 ||horse_name|y|string，马匹名称|
 ||horse_status|y|number，马匹状态：0-可参赛，1-不可参赛|
+||head_limit|y|number，头限额|
+||foot_limit|y|number，脚限额|
 
 响应: 
 ```json
@@ -98,7 +102,7 @@
 ```
 参数说明
 |参数名称|说明|
-----|----|
+|----|----|
 |race_id|string,比赛编号|
 |league_id|string,联赛编号|
 |race_time|timpstamp,比赛时间|
@@ -122,7 +126,9 @@
         "horse_info": [
             {
                 "horse_name":"string",
-                "horse_status":0
+                "horse_status":0,
+                "head_limit": 95,
+                "foot_limit": 95
             }
         ]
     }
