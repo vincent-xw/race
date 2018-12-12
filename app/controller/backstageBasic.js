@@ -10,6 +10,14 @@ class BackstageBasicController extends Controller {
     async login() {
         let {ctx, app} = this;
         let {username, password} = ctx.req.body;
+        // 检查参数毕传
+        let query = [
+            'username',
+            'password'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
         const getUser = (username, type) => ctx.service.user.getUserByLoginName(username, type);
         const existUser = await getUser(username, 'backstage');
 

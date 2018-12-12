@@ -1,6 +1,6 @@
 ### 登录
 
-接口地址: ``/api/backstage/login``
+接口地址: ``/api/backstage/login`` done
 
 类型 post
 
@@ -18,7 +18,7 @@
 
 ### 注销
 
-接口地址: ``/api/backstage/logout``
+接口地址: ``/api/backstage/logout`` done
 
 类型 get
 

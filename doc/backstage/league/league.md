@@ -1,6 +1,6 @@
 ### 新增联赛
 
-接口地址: ``/api/backstage/league/created``
+接口地址: ``/api/backstage/league/created`` done
 
 入参: 
 ```json

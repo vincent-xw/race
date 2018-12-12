@@ -25,6 +25,6 @@ module.exports = app => {
     apiBackStageRouter.post('/login', controller.backstageBasic.login);
     // 注销
     apiBackStageRouter.get('/logout', controller.backstageBasic.logout);
-    // 获取比赛列表
-    // apiBackStageRouter.get('/race/list', controller.backstage.getRaceList)
+    // 新增联赛
+    apiBackStageRouter.post('/league/add', controller.backstageLeague.addLeague);
 };
