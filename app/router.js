@@ -27,4 +27,6 @@ module.exports = app => {
     apiBackStageRouter.get('/logout', controller.backstageBasic.logout);
     // 新增联赛
     apiBackStageRouter.post('/league/add', controller.backstageLeague.addLeague);
+    // 更新联赛
+    apiBackStageRouter.post('/league/update', controller.backstageLeague.modifyLeague);
 };

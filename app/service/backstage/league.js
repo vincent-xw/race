@@ -17,12 +17,43 @@ class BackstageLeagueService extends Service {
                 'updated_time': new Date().toLocaleString()
             });
             return league.affectedRows === 1;
-        }
-        catch (error) {
-            this.ctx.logger.error(new Error('obj is not Array instance'));
+        } catch (error) {
+            this.ctx.logger.error(new Error(error));
             return false;
         }
 
+    }
+    /**
+     *根据id更新联赛数据
+     *
+     * @memberof BackstageLeagueService
+     */
+    async updateLeague(leagueData) {
+        try {
+            let post = {
+                ...leagueData,
+                'updated_time': new Date().toLocaleString()
+            };
+            for (const item in post) {
+                if (post.hasOwnProperty(item) && item === 'league_id') {
+                    delete post.league_id;
+                }
+                if (post.hasOwnProperty(item) && post[item] === undefined) {
+                    delete post[item];
+                }
+            }
+            
+            const options = {
+                where: {
+                    'league_id': leagueData.league_id
+                }
+            };
+            let league = await this.app.mysql.update('league', post, options);
+            return league.affectedRows === 1;
+        } catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
     }
 }
 module.exports = BackstageLeagueService;

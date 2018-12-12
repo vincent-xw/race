@@ -20,7 +20,7 @@
 
 ### 修改联赛
 
-接口地址: ``/api/backstage/league/update``
+接口地址: ``/api/backstage/league/update`` done
 
 入参: 
 ```json
@@ -30,7 +30,8 @@
         "league_remark": "123"
     }
 ```
-
+参数说明
+league_id 毕传，其他需要修改的传值，不需要的不传或者保持原样上传
 响应: 
 ```json
     {
