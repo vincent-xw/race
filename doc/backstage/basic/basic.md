@@ -2,6 +2,8 @@
 
 接口地址: ``/api/backstage/login``
 
+类型 post
+
 入参: 
 ``username:string, password:string``
 
@@ -17,6 +19,8 @@
 ### 注销
 
 接口地址: ``/api/backstage/logout``
+
+类型 get
 
 入参: 
 无

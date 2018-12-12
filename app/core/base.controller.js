@@ -9,14 +9,24 @@ class BaseController extends Controller {
             msg: ''
         };
     }
-    success(data) {
+    success(data, msg) {
         this.init();
-        this.ctx.body = {
-            ...this.initData,
-            data: {
-                ...data
-            }
-        };
+        if (data) {
+            this.ctx.body = {
+                ...this.initData,
+                msg,
+                data: {
+                    ...data
+                }
+            };
+        }
+        else {
+            this.ctx.body = {
+                ...this.initData,
+                msg
+            };
+        }
+        
     }
     failed(data) {
         this.ctx.body = {
