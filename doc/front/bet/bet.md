@@ -6,20 +6,17 @@
 ```json
     {
         "league_id": "1",
-        "race_time": 1544544513119,
         "horse_info": [
             {
                 "horse_id": "1001",
-                "horse_name":"string",
                 "bet_head": 10,
-                "head_limit": 95,
-                "bet_foot": 20,
-                "foot_limit": 95
+                "bet_foot": 20
             }
         ]
     }
 ```
 参数说明
+
 ||参数名称|说明|
 |----|----|----|
 |league_id||string，联赛ID，联赛接口返回的联赛列表中对应的联赛ID|
