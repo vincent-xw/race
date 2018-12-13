@@ -43,7 +43,7 @@ league_id 毕传，其他需要修改的传值，不需要的不传或者保持�
 
 ### 获取联赛列表
 
-接口地址: ``/api/backstage/league/list``
+接口地址: ``/api/backstage/league/list`` done
 
 入参: 
 无
@@ -82,7 +82,7 @@ league_id 毕传，其他需要修改的传值，不需要的不传或者保持�
 
 ### 删除联赛
 
-接口地址: ``/api/backstage/league/delete``
+接口地址: ``/api/backstage/league/delete`` done
 
 入参: 
 ```json

@@ -55,5 +55,39 @@ class BackstageLeagueService extends Service {
             return false;
         }
     }
+    /**
+     *获取联赛列表
+     *
+     * @memberof BackstageLeagueService
+     */
+    async getLeagueList() {
+        try {
+            let league = await this.app.mysql.select('league');
+            return {
+                league_list: league
+            };
+        } catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
+     *移除联赛记录
+     *
+     * @memberof BackstageLeagueService
+     */
+    async removeLeagueByLeagueID(leagueId) {
+        try {
+            const options = {
+                league_id: leagueId
+            };
+            let league = await this.app.mysql.delete('league', options);
+            return league.affectedRows === 1;
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
 }
 module.exports = BackstageLeagueService;

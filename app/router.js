@@ -26,7 +26,11 @@ module.exports = app => {
     // 注销
     apiBackStageRouter.get('/logout', controller.backstageBasic.logout);
     // 新增联赛
-    apiBackStageRouter.post('/league/add', controller.backstageLeague.addLeague);
+    apiBackStageRouter.post('/league/add', token, controller.backstageLeague.addLeague);
     // 更新联赛
-    apiBackStageRouter.post('/league/update', controller.backstageLeague.modifyLeague);
+    apiBackStageRouter.post('/league/update', token, controller.backstageLeague.modifyLeague);
+    // 获取联赛列表
+    apiBackStageRouter.get('/league/list', token, controller.backstageLeague.getLeagueList);
+    // 删除联赛记录
+    apiBackStageRouter.post('/league/delete', token, controller.backstageLeague.removeLeague);
 };
