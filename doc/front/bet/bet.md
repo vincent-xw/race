@@ -52,22 +52,20 @@
         "status": 0,
         "msg": "",
         "data": {
-            "bet_detail": [
-                {
-                    "league_id": "1",
-                    "race_time": 1544544513119,
-                    "horse_info": [
-                        {
-                            "horse_id": "1001",
-                            "horse_name":"string",
-                            "bet_head": 10,
-                            "head_limit": 95,
-                            "bet_foot": 20,
-                            "foot_limit": 95
-                        }
-                    ]
-                }
-            ]
+            "bet_detail": {
+                "bet_id": "1",
+                "league_id": "1",
+                "race_time": 1544544513119,
+                "bet_time": 1544544513119,
+                "horse_info": [
+                    {
+                        "horse_id": "1001",
+                        "horse_name":"string",
+                        "bet_head": 10,
+                        "bet_foot": 20
+                    }
+                ]
+            }
         }
     }
 ```
@@ -97,6 +95,7 @@
             "bet_list": [
                 {
                     "bet_id": "1001",
+                    "race_name": "马来西亚-2018年12月13日-比赛001",
                     "bet_time":1544544513119,
                     "lottery_time": 1544544513119
                 }

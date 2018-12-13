@@ -14,6 +14,7 @@
             "race_list": [
                 {
                     "race_id": "1001",
+                    "race_name": "1001",
                     "race_time": 1544544513119
                 }
             ]
@@ -35,6 +36,8 @@
         "data": {
             "race_info": {
                 "league_id": "1",
+                "league_name": "1",
+                "race_name": "1",
                 "race_time": 1544544513119,
                 "horse_info": [
                     {
