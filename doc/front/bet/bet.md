@@ -5,7 +5,7 @@
 入参: 
 ```json
     {
-        "league_id": "1",
+        "race_id": "1",
         "horse_info": [
             {
                 "horse_id": "1001",
