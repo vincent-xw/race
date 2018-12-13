@@ -6,7 +6,7 @@
 ```json
     {
         "race_id": "1",
-        "horse_info": [
+        "bet_info": [
             {
                 "horse_id": "1001",
                 "bet_head": 10,
@@ -21,12 +21,9 @@
 |----|----|----|
 |league_id||string，联赛ID，联赛接口返回的联赛列表中对应的联赛ID|
 |race_time||timestamp，比赛时间|
-|horse_info||数组，马匹信息，里面的每个item都有一个对象，创建只需要传名称及状态|
+|bet_info||数组，马匹信息，里面的每个item都有一个对象，创建只需要传名称及状态|
 ||horse_id|string，马匹id|
-||horse_name|string，马匹名称|
-||head_limit|int，头限额|
 ||bet_head|int，头投注额|
-||foot_limit|int，脚限额|
 ||bet_foot|int，脚投注额|
 
 响应: 
