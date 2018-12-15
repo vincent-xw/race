@@ -79,10 +79,10 @@ class BaseController extends Controller {
             for (let i = 0; i < obj.length; i++) {
                 if (ctx.req.body[obj[i]] === undefined) {
                     this.ctx.body = {
-                        status: 401,
+                        status: 403,
                         msg: '参数' + obj[i] + '必传,目前并未获取到'
                     };
-                    this.ctx.status = 401;
+                    this.ctx.status = 403;
                     return false;
                 }
             }

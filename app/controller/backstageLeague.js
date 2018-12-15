@@ -88,7 +88,12 @@ class BackstageLeagueController extends Controller {
         }
         this.failed(null, '获取失败', 500);
     }
-
+    /**
+     *删除联赛
+     *
+     * @returns
+     * @memberof BackstageLeagueController
+     */
     async removeLeague() {
         let {
             ctx

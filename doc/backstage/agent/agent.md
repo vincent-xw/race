@@ -1,6 +1,6 @@
 ### 新增代理
 
-接口地址: ``/api/backstage/agent/created``
+接口地址: ``/api/backstage/agent/created`` done
 
 入参: 
 ```json
@@ -26,12 +26,12 @@
 
 ### 修改代理
 
-接口地址: ``/api/backstage/agent/update``
+接口地址: ``/api/backstage/agent/update`` done
 
 入参: 
 ```json
     {
-        "agent_id": "1",
+        "id": "1",
         "agent_name": "1",
         "agent_password": "123456",
         "agent_phone": "13911112222",
@@ -53,7 +53,7 @@
 
 ### 获取代理列表
 
-接口地址: ``/api/backstage/agent/list``
+接口地址: ``/api/backstage/agent/list`` done
 
 入参: 
 无
@@ -67,7 +67,7 @@
         "data": {
             "agent_list": [
                 {
-                    "agent_id": "1",
+                    "id": "1",
                     "agent_name": "1",
                     "agent_phone": "13911112222",
                     "agent_wechat": "abc123",
@@ -81,7 +81,7 @@
 
 |参数名称|说明|
 ----|----|
-|agent_id|string,代理编号|
+|id|string,代理编号|
 |agent_name|string,代理名称|
 |agent_phone|string,代理手机|
 |agent_wechat|string,代理微信|
@@ -90,12 +90,12 @@
 
 ### 删除代理
 
-接口地址: ``/api/backstage/agent/delete``
+接口地址: ``/api/backstage/agent/delete`` done
 
 入参: 
 ```json
     {
-        "agent_id": "1"
+        "id": "1"
     }
 ```
 
