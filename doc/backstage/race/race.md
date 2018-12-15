@@ -1,4 +1,4 @@
-### 创建比赛 [返回顶部](#race 后台接口文档)
+### 创建比赛
 
 接口地址: ``/api/backstage/race/created``
 
@@ -89,14 +89,14 @@
             "page_size": "10",
             "list_data": [
                 {
-                    "id": "1001",
+                    "race_id": "1001",
                     "league_id": "1",
                     "race_time": 1544544513119,
                     "created_time": 1544544513119,
                     "all_bet": 1000,
                     "all_win": 800,
                     "player_win": 200,
-                    "race_status": 0,
+                    "race_status": 0
                 }
             ]
         }
@@ -114,6 +114,84 @@
 |all_win|int,总盈利|
 |player_win|int,玩家盈利|
 |race_status|int,比赛状态, 0-新创建，1-已发布，2-已结束|
+
+### 查询比赛详情
+
+接口地址: ``/api/backstage/race/detail``
+
+入参: 
+```json
+    {
+        "race_id": 1
+    }
+```
+参数说明
+
+|参数名称|required|说明|
+|----|----|----|----|
+|race_id|y|int 比赛id|
+
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": "",
+        "data": {
+            "list_data": {
+                "race_id": "1001",
+                "league_id": "1",
+                "race_time": 1544544513119,
+                "created_time": 1544544513119,
+                "all_bet": 1000,
+                "all_win": 800,
+                "player_win": 200,
+                "race_status": 0,
+                "horse_info":[
+                    {
+                        "horse_name":"string",
+                        "horse_status":0,
+                        "head_limit": 95,
+                        "foot_limit": 95
+                    }
+                ],
+                "bet_info": [
+                    {
+                        "bet_id": 1,
+                        "agent_id": 1,
+                        "agent_name": "agent001",
+                        "horse_id": "1001",
+                        "horse_name": "马匹001",
+                        "horse_score": "1",
+                        "bet_time": 1544544513119,
+                        "bet_head": 10,
+                        "bet_foot": 20,
+                        "head_odds": 10,
+                        "foot_odds": 8,
+                        "all_count": 100,
+                        "win_count": 80
+                    }
+                ]
+            }
+        }
+    }
+```
+参数说明
+
+|参数名称||说明|
+|----|----|----|
+|race_id||string,比赛编号|
+|league_id||string,联赛编号|
+|race_time||timpstamp,比赛时间|
+|created_time||timpstamp,创建时间|
+|all_bet||int,总投注额|
+|all_win||int,总赢钱|
+|player_win||int,玩家赢钱|
+|horse_info||array,马匹信息|
+|bet_info||array,投注信息|
+
+|race_status|int,比赛状态, 0-新创建，1-已发布，2-已结束|
+
 
 ### 修改比赛信息
 修改比赛信息不同于修改比赛状态，修改信息仅仅支持在状态为0即未发布的情况下修改
@@ -150,15 +228,40 @@
     }
 ```
 
-### 修改比赛状态
+### 修改比赛至开始比赛
 
-接口地址: ``/api/backstage/race/change``
+接口地址: ``/api/backstage/race/start-race``
+
+入参: 
+```json
+    {
+        "race_id": "1"
+    }
+```
+参数说明
+
+|参数名称|required|说明|
+|----|----|----|
+|race_id|y|string比赛ID|
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+
+### 修改比赛状态至比赛结束
+
+接口地址: ``/api/backstage/race/end-race``
 
 入参: 
 ```json
     {
         "race_id": "1",
-        "race_statue": 1
+        "head_odds": "10",
+        "foot_odds": "8"
     }
 ```
 参数说明
@@ -166,7 +269,8 @@
 |参数名称|required|说明|
 |----|----|----|
 |race_id|y|string比赛ID，每条比赛的状态进行更新|
-|race_statue|y|number比赛状态，只支持从低往高顺序修改，即状态为0时候可以改为1，1的时候可以改为2，不允许逆向修改，也不允许跳级修改|
+|head_odds|y|string头赔率|
+|foot_odds|y|string脚赔率|
 
 响应: 
 ```json
