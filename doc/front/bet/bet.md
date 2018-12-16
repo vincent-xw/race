@@ -76,13 +76,15 @@
 
 ### 投注历史
 
-接口地址: ``/api/front/race/bet/detail``
+接口地址: ``/api/front/race/bet/history``
 
 入参: 
 ```json
     {
-        "start_time": 1544544513119,
-        "end_time": 1544544513119
+        "bet_start_time": 1544544513119,
+        "bet_end_time": 1544544513119,
+        "race_start_time": 1544544513119,
+        "race_end_time": 1544544513119
     }
 ```
 
@@ -97,7 +99,7 @@
                     "bet_id": "1001",
                     "race_name": "马来西亚-2018年12月13日-比赛001",
                     "bet_time":1544544513119,
-                    "lottery_time": 1544544513119
+                    "race_time": 1544544513119
                 }
             ]
         }
