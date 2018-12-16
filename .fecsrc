@@ -1,0 +1,12 @@
+{
+    "eslint": {
+        "env": {
+            "node": true,
+            "browser": false
+        },
+
+        "rules": {
+            "fecs-camelcase": 0
+        }
+    }
+}

@@ -1,3 +1,4 @@
+/* eslint-disable fecs-camelcase */
 /**
  * @file agent Controller
  * @author Vincent

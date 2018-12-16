@@ -21,6 +21,7 @@ module.exports = app => {
 
     // apiFrontRouter.get('/logout', token, controller.front.info);
     // 后台Router
+    // 登录
     apiBackStageRouter.post('/login', controller.backstageBasic.login);
     // 注销
     apiBackStageRouter.get('/logout', controller.backstageBasic.logout);  
@@ -42,4 +43,13 @@ module.exports = app => {
     apiBackStageRouter.get('/agent/list', token, controller.backstageAgent.getAgentList);
     // 删除代理记录
     apiBackStageRouter.post('/agent/delete', token, controller.backstageAgent.removeAgent);
+    // 比赛相关
+    // 创建比赛
+    apiBackStageRouter.post('/race/add', token, controller.backstageRace.addRace);
+    // 修改比赛
+    apiBackStageRouter.post('/race/update', token, controller.backstageRace.modifyRace);
+    // 修改马匹信息
+    apiBackStageRouter.post('/race/horse/update', token, controller.backstageRace.modifyRaceHorse);
+    // 删除比赛
+    apiBackStageRouter.post('/race/delete', token, controller.backstageRace.deleteRace);
 };

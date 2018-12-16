@@ -1,11 +1,12 @@
 ### 创建比赛
 
-接口地址: ``/api/backstage/race/created``
+接口地址: ``/api/backstage/race/add`` done
 
 入参: 
 ```json
     {
         "league_id": "1",
+        "league_name": "马来西亚",
         "race_time": 1544544513119,
         "horse_info": [
             {
@@ -39,7 +40,7 @@
 
 ### 删除比赛
 
-接口地址: ``/api/backstage/race/delete``
+接口地址: ``/api/backstage/race/delete`` done
 
 入参: 
 ```json
@@ -196,7 +197,7 @@
 ### 修改比赛信息
 修改比赛信息不同于修改比赛状态，修改信息仅仅支持在状态为0即未发布的情况下修改
 
-接口地址: ``/api/backstage/race/change``
+接口地址: ``/api/backstage/race/update`` done
 
 入参: 
 ```json
@@ -212,6 +213,36 @@
                 "foot_limit": 95
             }
         ]
+    }
+```
+参数说明
+
+|参数名称|required|说明|
+|----|----|----|
+|race_id|y|string比赛ID，依据已创建的比赛进行修改更新其余字段参考创建比赛|
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+
+### 修改比赛中单个马匹信息
+修改比赛单个马匹的信息，修改马匹信息仅仅支持在状态为0即未发布的情况下修改
+
+接口地址: ``/api/backstage/race/horse/update`` done
+
+入参: 
+```json
+    {
+        "race_id": "1",
+        "horse_id": "1",        
+        "horse_name":"string",
+        "horse_status":0,
+        "head_limit": 95,
+        "foot_limit": 95
     }
 ```
 参数说明
