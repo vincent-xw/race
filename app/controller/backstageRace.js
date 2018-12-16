@@ -183,7 +183,34 @@ class RaceController extends Controller {
      * @memberof RaceController
      */
     async startRace() {
-        
+        let {
+            ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'race_id'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            race_id
+        } = ctx.req.body;
+        let raceInfo = {
+            race_id
+        };
+        const startRace = raceInfo => ctx.service.backstage.race.startRaceStatusById(raceInfo);
+        const raceResult = await startRace(raceInfo);
+
+        if (raceResult) {
+            this.success(null, '操作成功');
+            return;
+        }
+        else if (raceResult === 0) {
+            this.failed(null, '当前比赛已发布不允许重复发布', 500);
+            return;
+        }
+        this.failed(null, '操作失败', 500);
     }
 }
 

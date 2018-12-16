@@ -261,7 +261,7 @@
 
 ### 修改比赛至开始比赛
 
-接口地址: ``/api/backstage/race/start-race``
+接口地址: ``/api/backstage/race/start``
 
 入参: 
 ```json

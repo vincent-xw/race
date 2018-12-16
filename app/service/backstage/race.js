@@ -148,5 +148,30 @@ class RaceService extends Service {
             return false;
         }
     }
+    /**
+     *修改比赛为开始状态
+     *
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async startRaceStatusById(raceData, way) {
+        let race_info = await this.app.mysql.get('race', {
+            race_id: raceData.race_id
+        });
+        // 如果当前状态是已结束
+        if (race_info.race_status !== 0) {
+            return 0;
+        }
+        let post = {
+            race_status: 1,
+            updated_time: new Date().toLocaleString()
+        };
+        let race = await this.app.mysql.update('race', post, {
+            where: {
+                race_id: raceData.race_id
+            }
+        });
+        return race.affectedRows === 1;
+    }
 }
 module.exports = RaceService;

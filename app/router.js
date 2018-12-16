@@ -53,5 +53,5 @@ module.exports = app => {
     // 删除比赛
     apiBackStageRouter.post('/race/delete', token, controller.backstageRace.deleteRace);
     // 开始比赛
-    apiBackStageRouter.post('/race/start-race', token, controller.backstageRace.startRace);
+    apiBackStageRouter.post('/race/start', token, controller.backstageRace.startRace);
 };
