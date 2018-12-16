@@ -3,6 +3,7 @@
  * @file race service
  * @author Vincent
  */
+'use strict';
 
 const Service = require('egg').Service;
 
@@ -35,6 +36,59 @@ class RaceService extends Service {
         }
         catch (error) {
             await conn.rollback();
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
+     *获取比赛列表
+     *查询race表的比赛信息及horse表的马匹信息，如果比赛已发布或者已结束还需要一并计算投注结果
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async getRaceList(raceData) {
+        try {
+            // 格式化参数数组获取有效信息
+            for (const item in raceData) {
+                if (raceData.hasOwnProperty(item) && raceData[item] === undefined) {
+                    delete raceData[item];
+                }
+            }
+            let query = 'select SQL_CALC_FOUND_ROWS * from race ';
+            let options = '';
+            if (raceData.start_time && raceData.end_time) {
+                options += ' race_time between "'
+                        + new Date(parseInt(raceData.start_time, 10)).toLocaleString()
+                        + '" and "'
+                        + new Date(parseInt(raceData.end_time, 10)).toLocaleString() +'"';
+            }
+            let league = '';
+            if (raceData.league_id) {
+                league += ' league_id = ' + raceData.league_id;
+            }
+            let limit = '';
+            if (raceData.page_no) {
+                let count = (raceData.page_no - 1) * 10;
+                limit = 'limit 10 offset ' + count;
+            }
+            else {
+                limit = 'limit 10 offset 0';
+            }
+            if (options !== '' || league !== '') {
+                this.app.mysql.escape(query += ' where' + options + ' and ' + league + ' ' + limit);
+            }
+            else {
+                query += ' ' + limit;
+            }
+            // console.log(query);
+            let raceResult = await this.app.mysql.query(query);
+            let receTableCount = await this.app.mysql.query('SELECT FOUND_ROWS();');
+
+            return {
+                list: raceResult,
+                count: receTableCount[0]['FOUND_ROWS()']};
+        }
+        catch (error) {
             this.ctx.logger.error(new Error(error));
             return false;
         }

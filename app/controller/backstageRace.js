@@ -50,6 +50,43 @@ class RaceController extends Controller {
         this.failed(null, '创建失败', 500);
     }
     /**
+     *获取比赛列表
+     *
+     * @memberof RaceController
+     */
+    async getRaceList() {
+        let {
+            ctx
+        } = this;
+        // 无需检查参数毕传
+        let {
+            start_time = '',
+            end_time = '',
+            league_id = '',
+            page_no = 1
+        } = ctx.req.query;
+
+        let searchParam = {
+            start_time,
+            end_time,
+            league_id,
+            page_no
+        };
+        let raceList = searchParam => ctx.service.backstage.race.getRaceList(searchParam);
+        const raceResult = await raceList(searchParam);
+        if (raceResult) {
+            let data = {
+                page_no,
+                page_count: raceResult.count,
+                page_size: 10,
+                list_data: [raceResult.list]
+            }
+            this.success(data, '查询成功');
+            return;
+        }
+        this.failed(null, '查询失败', 500);
+    }
+    /**
      *修改比赛信息
      *
      * @memberof RaceController

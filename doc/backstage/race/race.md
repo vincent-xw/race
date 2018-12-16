@@ -58,7 +58,7 @@
 ```
 ### 获取比赛列表
 
-接口地址: ``/api/backstage/race/list``
+接口地址: ``/api/backstage/race/list`` done
 
 入参: 
 ```json
@@ -261,7 +261,7 @@
 
 ### 修改比赛至开始比赛
 
-接口地址: ``/api/backstage/race/start``
+接口地址: ``/api/backstage/race/start`` done
 
 入参: 
 ```json
