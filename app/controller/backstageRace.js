@@ -255,7 +255,41 @@ class RaceController extends Controller {
      * @memberof RaceController
      */
     async endRace() {
+        let {
+            ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'race_id',
+            'head_odds',
+            'foot_odds',
+            'horse_info'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            race_id
+        } = ctx.req.body;
+        let raceInfo = {
+            race_id
+        };
+        const endRace = raceInfo => ctx.service.backstage.race.endRaceStatusById(raceInfo);
+        const raceResult = await endRace(raceInfo);
 
+        if (raceResult === 1) {
+            this.success(null, '操作成功');
+            return;
+        }
+        else if (raceResult === 0) {
+            this.failed(null, '当前比赛已结束不允许重复结束', 500);
+            return;
+        }
+        else if (raceResult === 2) {
+            this.failed(null, '操作失败，参数缺失', 500);
+            return;
+        }
+        this.failed(null, '操作失败', 500);
     }
 }
 

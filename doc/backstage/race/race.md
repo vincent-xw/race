@@ -259,6 +259,33 @@
     }
 ```
 
+### 发布马匹成绩信息
+发你比赛单个马匹的成绩信息，发你马匹成绩信息仅仅支持在状态为1即已发布的情况下修改
+
+接口地址: ``/api/backstage/race/horse/update`` done
+
+入参: 
+```json
+    {
+        "race_id": "1",
+        "horse_id": "1",
+        "horse_score": 1
+    }
+```
+参数说明
+
+|参数名称|required|说明|
+|----|----|----|
+|race_id|y|string比赛ID，依据已创建的比赛进行修改更新其余字段参考创建比赛|
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+
 ### 修改比赛至开始比赛
 
 接口地址: ``/api/backstage/race/start`` done
@@ -292,7 +319,13 @@
     {
         "race_id": "1",
         "head_odds": "10",
-        "foot_odds": "8"
+        "foot_odds": "8",
+        "horse_info":[
+            {
+                "horse_id":1,
+                "horse_score":1
+            }
+        ]
     }
 ```
 参数说明
