@@ -80,7 +80,7 @@ class RaceController extends Controller {
                 page_count: raceResult.count,
                 page_size: 10,
                 list_data: [raceResult.list]
-            }
+            };
             this.success(data, '查询成功');
             return;
         }
@@ -180,7 +180,7 @@ class RaceController extends Controller {
         this.failed(null, '修改失败', 500);
     }
     /**
-     *修改比赛信息
+     *删除比赛信息
      *
      * @memberof RaceController
      */
@@ -248,6 +248,14 @@ class RaceController extends Controller {
             return;
         }
         this.failed(null, '操作失败', 500);
+    }
+    /**
+     *结束比赛
+     *
+     * @memberof RaceController
+     */
+    async endRace() {
+
     }
 }
 

@@ -58,7 +58,7 @@
 ```
 ### 获取比赛列表
 
-接口地址: ``/api/backstage/race/list`` done
+接口地址: ``/api/backstage/race/list`` part of done
 
 入参: 
 ```json
@@ -93,10 +93,10 @@
                     "race_id": "1001",
                     "league_id": "1",
                     "race_time": 1544544513119,
-                    "created_time": 1544544513119,
                     "all_bet": 1000,
                     "all_win": 800,
                     "player_win": 200,
+                    "race_status": 1,
                     "race_status": 0
                 }
             ]
@@ -118,7 +118,7 @@
 
 ### 查询比赛详情
 
-接口地址: ``/api/backstage/race/detail``
+接口地址: ``/api/backstage/race/detail`` 
 
 入参: 
 ```json
