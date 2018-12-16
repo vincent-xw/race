@@ -299,7 +299,7 @@
 
 |参数名称|required|说明|
 |----|----|----|
-|race_id|y|string比赛ID，每条比赛的状态进行更新|
+|race_id|y|string 比赛ID，每条比赛的状态进行更新|
 |head_odds|y|string头赔率|
 |foot_odds|y|string脚赔率|
 

@@ -52,4 +52,6 @@ module.exports = app => {
     apiBackStageRouter.post('/race/horse/update', token, controller.backstageRace.modifyRaceHorse);
     // 删除比赛
     apiBackStageRouter.post('/race/delete', token, controller.backstageRace.deleteRace);
+    // 开始比赛
+    apiBackStageRouter.post('/race/start-race', token, controller.backstageRace.startRace);
 };

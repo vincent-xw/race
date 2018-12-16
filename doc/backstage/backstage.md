@@ -7,7 +7,10 @@
 | 删除比赛 | [``/api/backstage/race/delete``](./race/race.md#删除比赛) | 删除比赛 |
 | 获取比赛列表 | [``/api/backstage/race/list``](./race/race.md#获取比赛列表) | 获取比赛列表 |
 | 修改比赛信息 | [``/api/backstage/race/update``](./race/race.md#修改比赛信息) | 修改比赛里面的基本信息，允许修改未开始的比赛 |
-| 修改比赛状态 | [``/api/backstage/race/change``](./race/race.md#修改比赛状态) | 修改比赛状态 |
+| 修改比赛中单个马匹信息 | [``/api/backstage/race/update``](./race/race.md#修改比赛中单个马匹信息) | 修改比赛里面的马匹信息，允许修改未开始的比赛 |
+| 删除比赛中单个马匹信息 | [``/api/backstage/race/update``](./race/race.md#删除比赛中单个马匹信息) | 删除比赛中单个马匹信息，允许修改未开始的比赛 |
+| 修改比赛至开始比赛 | [``/api/backstage/race/start-race``](./race/race.md#修改比赛至开始比赛) | 修改比赛至开始比赛 |
+| 修改比赛状态至比赛结束 | [``/api/backstage/race/end-race``](./race/race.md#修改比赛状态至比赛结束) | 修改比赛状态至比赛结束 |
 | 新增联赛 | [``/api/backstage/league/created``](./league/league.md#新增联赛) | 新增联赛 |
 | 修改联赛 | [``/api/backstage/league/update``](./league/league.md#修改联赛) | 修改联赛信息基本信息及状态 |
 | 联赛列表 | [``/api/backstage/league/list``](./league/league.md#联赛列表) | 联赛列表 |

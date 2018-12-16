@@ -177,6 +177,14 @@ class RaceController extends Controller {
         }
         this.failed(null, '删除失败', 500);
     }
+    /**
+     *开始比赛
+     *
+     * @memberof RaceController
+     */
+    async startRace() {
+        
+    }
 }
 
 module.exports = RaceController;
