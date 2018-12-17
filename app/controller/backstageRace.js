@@ -285,7 +285,7 @@ class RaceController extends Controller {
             return;
         }
         else if (raceResult === 0) {
-            this.failed(null, '当前比赛状态异常，不允许设置赔率', 500);
+            this.failed(null, '当前比赛状态非已发布，不允许设置赔率', 500);
             return;
         }
         this.failed(null, '操作失败', 500);

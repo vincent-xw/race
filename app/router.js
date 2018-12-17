@@ -57,5 +57,5 @@ module.exports = app => {
     // 获取比赛列表
     apiBackStageRouter.get('/race/list', token, controller.backstageRace.getRaceList);
     // 设置赔率
-    apiBackStageRouter.get('/race/setOdds', token, controller.backstageRace.setOdds);
+    apiBackStageRouter.post('/race/setOdds', token, controller.backstageRace.setOdds);
 };

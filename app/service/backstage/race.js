@@ -247,12 +247,12 @@ class RaceService extends Service {
                 foot_odds: raceData.foot_odds,
                 race_status: 2
             };
-            let setOdds = this.app.mysql.update('race', post, {
+            let setOdds = await this.app.mysql.update('race', post, {
                 where: {
                     race_id: raceData.race_id
                 }
             });
-            return 1;
+            return setOdds.affectedRows === 1 ? 1 : false;
         }
         catch (error) {
             this.ctx.logger.error(new Error(error));
