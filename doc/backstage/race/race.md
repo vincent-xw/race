@@ -114,7 +114,7 @@
 |all_bet|int,总投注|
 |all_win|int,总盈利|
 |player_win|int,玩家盈利|
-|race_status|int,比赛状态, 0-新创建，1-已发布，2-已结束|
+|race_status|int,比赛状态, 0-新创建，1-已发布，2-已设置赔率，3-已结算|
 
 ### 查询比赛详情
 
@@ -191,7 +191,7 @@
 |horse_info||array,马匹信息|
 |bet_info||array,投注信息|
 
-|race_status|int,比赛状态, 0-新创建，1-已发布，2-已结束|
+|race_status|int,比赛状态, 0-新创建，1-已发布，2-已设置赔率，3-已结算|
 
 
 ### 修改比赛信息
@@ -301,6 +301,33 @@
 |参数名称|required|说明|
 |----|----|----|
 |race_id|y|string比赛ID|
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+### 添加比赛赔率
+
+接口地址: ``/api/backstage/race/setOdds`` done
+
+入参: 
+```json
+    {
+        "race_id": "1",
+        "head_odds": 150,
+        "foot_odds": 85
+    }
+```
+参数说明
+
+|参数名称|required|说明|
+|----|----|----|
+|race_id|y|string比赛ID|
+|head_odds|y|int头赔率， 默认*10，前端展示/10|
+|foot_odds|y|int脚赔率， 默认*10，前端展示/10|
 
 响应: 
 ```json

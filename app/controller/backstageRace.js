@@ -250,6 +250,47 @@ class RaceController extends Controller {
         this.failed(null, '操作失败', 500);
     }
     /**
+     *设置比赛赔率
+     *
+     * @memberof RaceController
+     */
+    async setOdds() {
+        let {
+            ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'race_id',
+            'head_odds',
+            'foot_odds'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            race_id,
+            head_odds,
+            foot_odds
+        } = ctx.req.body;
+        let raceInfo = {
+            race_id,
+            head_odds,
+            foot_odds
+        };
+        const setOdds = raceInfo => ctx.service.backstage.race.setOddsById(raceInfo);
+        const raceResult = await setOdds(raceInfo);
+
+        if (raceResult === 1) {
+            this.success(null, '操作成功');
+            return;
+        }
+        else if (raceResult === 0) {
+            this.failed(null, '当前比赛状态异常，不允许设置赔率', 500);
+            return;
+        }
+        this.failed(null, '操作失败', 500);
+    }
+    /**
      *结束比赛
      *
      * @memberof RaceController

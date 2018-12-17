@@ -228,93 +228,45 @@ class RaceService extends Service {
         return race.affectedRows === 1;
     }
     /**
+     *根据ID设置比赛赔率
+     *
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async setOddsById(raceData) {
+        try {
+            let race_info = await this.app.mysql.get('race', {
+                race_id: raceData.race_id
+            });
+            // 如果当前状态是已发布
+            if (race_info.race_status !== 1) {
+                return 0;
+            }
+            let post = {
+                head_odds: raceData.head_odds,
+                foot_odds: raceData.foot_odds,
+                race_status: 2
+            };
+            let setOdds = this.app.mysql.update('race', post, {
+                where: {
+                    race_id: raceData.race_id
+                }
+            });
+            return 1;
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
      *修改比赛为结束状态，并计算结算结果
      *
      * @param {*} raceData
      * @memberof RaceService
      */
     async endRaceStatusById(raceData) {
-        try {
-            // 检验需要更新的马匹传参是否正确
-            let horse_info = await this.app.mysql.select('horse', {
-                race_id: raceData.race_id
-            });
-            if (horse_info.length !== raceData.horse_info.length) {
-                return 2;
-            }
-            // 检验比赛状态是否正常
-            let race_info = await this.app.mysql.get('race', {
-                race_id: raceData.race_id
-            });
-            if (race_info.race_status !== 1) {
-                return 0;
-            }
-            // 建立事务连接
-            const conn = await this.app.mysql.beginTransaction();
-            try {
-                // 更新马匹成绩
-                for (let index = 0; index < raceData.horse_info.length; index++) {
-                    let post = {
-                        horse_score: raceData.horse_info[index].horse_score
-                    };
-                    await this.app.mysql.update('horse', post, {
-                        where: {
-                            horse_id: raceData.horse_info[index].horse_id
-                        }
-                    });
-                }
-                // 更新投注信息
-                // 获取马匹头三名信息
-                let horseScore = {};
-                for (let index = 0; index < raceData.horse_info.length; index++) {
-                    const element = raceData.horse_info[index];
-                    if (element.horse_score === '1') {
-                        horseScore.first = {
-                            horse_id: element.horse_id,
-                            horse_score: element.horse_score
-                        };
-                    }
-                    else if (element.horse_score === '2') {
-                        horseScore.second = {
-                            horse_id: element.horse_id,
-                            horse_score: element.horse_score
-                        };
-                    }
-                    else if (element.horse_score === '2') {
-                        horseScore.third = {
-                            horse_id: element.horse_id,
-                            horse_score: element.horse_score
-                        };
-                    }
-                    // 三名都找出来了就跳出循环
-                    if (horseScore.first && horseScore.second && horseScore.third) {
-                        break;
-                    }
-                }
-                let betResult = await this.app.mysql.select('bet', {
-                    where: {
-                        race_id: raceData.race_id
-                    }
-                });
-                for (let index = 0; index < betResult.length; index++) {
-                    let post = {
-                        head_odds: raceData.head_odds,
-                        foot_odds: raceData.foot_odds
-                    }
-                    // 默认第一个更新第一名成绩
-                    post.win_count = betResult.be
-                    await this.app.mysql.update('bet',)
-                    
-                }
-            } catch (error) {
-                await conn.rollback();
-                this.ctx.logger.error(new Error(error));
-                return false;
-            }
-        } catch (error) {
-            this.ctx.logger.error(new Error(error));
-            return false;
-        }
+        
     }
 }
 module.exports = RaceService;
