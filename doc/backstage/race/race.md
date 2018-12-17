@@ -261,8 +261,8 @@
 
 ### 发布马匹成绩信息
 发你比赛单个马匹的成绩信息，发你马匹成绩信息仅仅支持在状态为1即已发布的情况下修改
-
-接口地址: ``/api/backstage/race/horse/update`` done
+发布马匹成绩会同步计算投注赢钱数据，所以前提是需要确保已经设置赔率
+接口地址: ``/api/backstage/race/horse/setScore``  done
 
 入参: 
 ```json
@@ -339,7 +339,7 @@
 
 ### 修改比赛状态至比赛结束
 
-接口地址: ``/api/backstage/race/end-race``
+接口地址: ``/api/backstage/race/end-race`` done
 
 入参: 
 ```json
@@ -362,6 +362,25 @@
 |race_id|y|string 比赛ID，每条比赛的状态进行更新|
 |head_odds|y|string头赔率|
 |foot_odds|y|string脚赔率|
+
+响应: 
+```json
+    {
+        "status": 0,
+        "msg": ""
+    }
+```
+
+### 删除投注记录
+
+接口地址: ``/api/backstage/bet/delete`` done
+
+入参: 
+```json
+    {
+        "bet_id": "1"
+    }
+```
 
 响应: 
 ```json

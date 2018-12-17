@@ -291,6 +291,51 @@ class RaceController extends Controller {
         this.failed(null, '操作失败', 500);
     }
     /**
+     *设置马匹成绩
+     *更新马匹成绩的同时会根据马匹投注情况更新投注结果
+     * @memberof RaceController
+     */
+    async setScore() {
+        let {
+            ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'race_id',
+            'horse_id',
+            'horse_score'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            race_id,
+            horse_id,
+            horse_score
+        } = ctx.req.body;
+        let scoreInfo = {
+            race_id,
+            horse_id,
+            horse_score
+        };
+        const setScore = scoreInfo => ctx.service.backstage.race.setScoreById(scoreInfo);
+        const raceResult = await setScore(scoreInfo);
+
+        if (raceResult === true) {
+            this.success(null, '操作成功');
+            return;
+        }
+        else if (raceResult === 0) {
+            this.failed(null, '当前比赛未发布，不允许操作', 500);
+            return;
+        }
+        else if (raceResult === 1) {
+            this.failed(null, '当前比赛未设置赔率，请先设置赔率', 500);
+            return;
+        }
+        this.failed(null, '操作失败', 500);
+    }
+    /**
      *结束比赛
      *
      * @memberof RaceController
@@ -301,10 +346,7 @@ class RaceController extends Controller {
         } = this;
         // 检查参数毕传
         let query = [
-            'race_id',
-            'head_odds',
-            'foot_odds',
-            'horse_info'
+            'race_id'
         ];
         if (!this.requireCheck(query)) {
             return;
@@ -323,11 +365,38 @@ class RaceController extends Controller {
             return;
         }
         else if (raceResult === 0) {
-            this.failed(null, '当前比赛已结束不允许重复结束', 500);
+            this.failed(null, '操作失败，当前比赛暂未设置赔率，请先设置赔率', 500);
             return;
         }
-        else if (raceResult === 2) {
-            this.failed(null, '操作失败，参数缺失', 500);
+        this.failed(null, '操作失败', 500);
+    }
+    /**
+     *删除投注记录
+     *
+     * @memberof RaceController
+     */
+    async deleteBet() {
+        let {
+            ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'bet_id'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            bet_id
+        } = ctx.req.body;
+        let betInfo = {
+            bet_id
+        };
+        const deleteBet = betInfo => ctx.service.backstage.race.deleteBetById(betInfo);
+        const deleteResult = await deleteBet(betInfo);
+
+        if (deleteResult === 1) {
+            this.success(null, '操作成功');
             return;
         }
         this.failed(null, '操作失败', 500);

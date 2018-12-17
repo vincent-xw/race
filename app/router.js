@@ -58,4 +58,10 @@ module.exports = app => {
     apiBackStageRouter.get('/race/list', token, controller.backstageRace.getRaceList);
     // 设置赔率
     apiBackStageRouter.post('/race/setOdds', token, controller.backstageRace.setOdds);
+    // 发布成绩
+    apiBackStageRouter.post('/race/horse/setScore', token, controller.backstageRace.setScore);
+    // 结束比赛
+    apiBackStageRouter.post('/race/end', token, controller.backstageRace.endRace);
+    // 删除投注记录
+    apiBackStageRouter.post('/race/bet/delete', token, controller.backstageRace.deleteBet);
 };

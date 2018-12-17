@@ -260,13 +260,125 @@ class RaceService extends Service {
         }
     }
     /**
+     *根据马匹ID设定成绩并且更新投注表里面的赢钱
+     *
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async setScoreById(raceData) {
+        const conn = await this.app.mysql.beginTransaction();
+        try {
+            let race_info = await conn.get('race', {
+                race_id: raceData.race_id
+            });
+            // 获取赔率信息
+            let head_odds = race_info.head_odds;
+            let foot_odds = race_info.foot_odds;
+            // 如果当前状态是已发布
+            if (race_info.race_status === 0) {
+                return 0;
+            }
+            else if (race_info.race_status === 1) {
+                return 1;
+            }
+            let post = {
+                'horse_score': raceData.horse_score
+            };
+            // 更新马匹成绩
+            await conn.update('horse', post, {
+                where: {
+                    horse_id: raceData.horse_id
+                }
+            });
+            // 如果是第一名则计算成绩并且更新头投注
+            // 获取本场比赛该马匹的投注情况
+            let betInfo = await conn.select('bet', {
+                where: {
+                    race_id: raceData.race_id,
+                    horse_id: raceData.horse_id
+                }
+            });
+            if (+raceData.horse_score === 1) {
+                for (let index = 0; index < betInfo.length; index++) {
+                    const element = betInfo[index];
+                    element.head_win_count = element.bet_head * head_odds;
+                    element.win_count += element.head_win_count ;
+                    await conn.update('bet', element, {
+                        where: {
+                            bet_id: element.bet_id
+                        }
+                    });
+                }
+            }
+            // 如果是前三名则计算成绩并更新脚投注
+            if (+raceData.horse_score <= 3) {
+                for (let index = 0; index < betInfo.length; index++) {
+                    const element = betInfo[index];
+                    element.foot_win_count = element.bet_foot * foot_odds;
+                    element.win_count += element.foot_win_count;
+                    await conn.update('bet', element, {
+                        where: {
+                            bet_id: element.bet_id
+                        }
+                    });
+                }
+            }
+            conn.commit();
+            return true;
+        }
+        catch (error) {
+            conn.rollback();
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
      *修改比赛为结束状态，并计算结算结果
      *
      * @param {*} raceData
      * @memberof RaceService
      */
     async endRaceStatusById(raceData) {
-        
+        try {
+            let race_info = await this.app.mysql.get('race', {
+                race_id: raceData.race_id
+            });
+            // 如果当前状态是已发布
+            if (race_info.race_status !== 2) {
+                return 0;
+            }
+            let post = {
+                race_status: 3
+            };
+            let changeStatus = await this.app.mysql.update('race', post, {
+                where: {
+                    race_id: raceData.race_id
+                }
+            });
+            return changeStatus.affectedRows === 1 ? 1 : false;
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
+     *根据ID删除投注信息
+     *
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async deleteBetById(raceData) {
+        try {
+            let deleteStatus = await this.app.mysql.delete('bet', {
+                bet_id: raceData.bet_id
+            });
+            return deleteStatus.affectedRows === 1;
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
     }
 }
 module.exports = RaceService;
