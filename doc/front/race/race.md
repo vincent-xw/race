@@ -3,7 +3,11 @@
 接口地址: ``/api/front/race/list``
 
 入参: 
-无
+```json
+{
+    "league_id": 1
+}
+```
 
 响应: 
 ```json

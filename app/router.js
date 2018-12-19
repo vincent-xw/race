@@ -20,6 +20,8 @@ module.exports = app => {
     apiFrontRouter.get('/logout', token, controller.frontBasic.logout);
     // 获取联赛列表
     apiFrontRouter.get('/league/list', token, controller.frontLeague.list);
+    // 获取比赛列表
+    apiFrontRouter.get('/race/list', token, controller.frontRace.list);
     // 后台Router
     // 登录
     apiBackStageRouter.post('/login', controller.backstageBasic.login);

@@ -73,11 +73,12 @@ class BaseController extends Controller {
      *
      * @memberof BaseController
      */
-    requireCheck(obj) {
+    requireCheck(obj, type) {
         let {ctx} = this;
+        let querySource = type === 'get' ? ctx.req.query : ctx.req.body;
         if (obj instanceof Array) {
             for (let i = 0; i < obj.length; i++) {
-                if (ctx.req.body[obj[i]] === undefined) {
+                if (querySource[obj[i]] === undefined) {
                     this.ctx.body = {
                         status: 403,
                         msg: '参数' + obj[i] + '必传,目前并未获取到'
