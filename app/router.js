@@ -15,16 +15,16 @@ module.exports = app => {
     const token = middleware.token();
     // 前台Router
     // 登录校验
-    apiFrontRouter.post('/login', controller.front.login);
-    // 代理修改密码
-    // apiFrontRouter.get('/resetpwd', token, controller.front.info);
-
-    // apiFrontRouter.get('/logout', token, controller.front.info);
+    apiFrontRouter.post('/login', controller.frontBasic.login);
+    // 注销
+    apiFrontRouter.get('/logout', token, controller.frontBasic.logout);
+    // 获取联赛列表
+    apiFrontRouter.get('/league/list', token, controller.frontLeague.list);
     // 后台Router
     // 登录
     apiBackStageRouter.post('/login', controller.backstageBasic.login);
     // 注销
-    apiBackStageRouter.get('/logout', controller.backstageBasic.logout);  
+    apiBackStageRouter.get('/logout', controller.backstageBasic.logout);
     // 联赛相关
     // 新增联赛
     apiBackStageRouter.post('/league/add', token, controller.backstageLeague.addLeague);

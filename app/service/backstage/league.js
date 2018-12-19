@@ -66,7 +66,8 @@ class BackstageLeagueService extends Service {
             return {
                 league_list: league
             };
-        } catch (error) {
+        }
+        catch (error) {
             this.ctx.logger.error(new Error(error));
             return false;
         }

@@ -1,8 +1,18 @@
+/**
+ * @file 前台controller
+ * @author vincent
+ */
 'use strict';
 
 const Controller = require('../core/base.controller');
 
 class FrontController extends Controller {
+    /**
+     *登录功能
+     *
+     * @returns
+     * @memberof FrontController
+     */
     async login() {
         let {ctx, app} = this;
         let {username, password} = ctx.req.body;
@@ -40,6 +50,16 @@ class FrontController extends Controller {
         ctx.cookies.set(app.config.auth_cookie_name, authToken, opts); // cookie 有效期1天
         this.success(existUser);
         return;
+    }
+    /**
+     *
+     * @name 注销
+     * @memberof BackstageBasicController
+     */
+    logout() {
+        let {ctx, app} = this;
+        ctx.cookies.set(app.config.auth_cookie_name, null);
+        this.success(null, '注销成功');
     }
     // 登录获取基本信息
     info() {
