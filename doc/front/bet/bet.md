@@ -40,7 +40,7 @@
 
 ### 投注详情
 
-接口地址: ``/api/front/race/bet/detail``
+接口地址: ``/api/front/race/bet/detail`` done 
 
 入参: 
 ```json
@@ -80,7 +80,7 @@
 
 ### 投注历史
 
-接口地址: ``/api/front/race/bet/history``
+接口地址: ``/api/front/race/bet/history`` 
 
 入参: 
 ```json
@@ -88,7 +88,8 @@
         "bet_start_time": 1544544513119,
         "bet_end_time": 1544544513119,
         "race_start_time": 1544544513119,
-        "race_end_time": 1544544513119
+        "race_end_time": 1544544513119,
+        
     }
 ```
 

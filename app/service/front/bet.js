@@ -47,5 +47,27 @@ class BetService extends Service {
             return false;
         }
     }
+    /**
+     *获取投注详情
+     *
+     * @param {*} betData
+     * @memberof BetService
+     */
+    async getBetDetail(betData) {
+        try {
+            let post = {
+                bet_id: betData.bet_id
+            };
+            let betDetailResult = await this.app.mysql.get('bet', post);
+            if (betDetailResult || betDetailResult === null) {
+                return betDetailResult === null ? {} : betDetailResult;
+            }
+            return false;
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
 }
 module.exports = BetService;

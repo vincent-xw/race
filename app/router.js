@@ -28,6 +28,8 @@ module.exports = app => {
     apiFrontRouter.post('/race/bet', token, controller.frontBet.bet);
     // 投注详情
     apiFrontRouter.post('/race/bet/detail', token, controller.frontBet.betDetail);
+    // 投注列表
+    apiFrontRouter.post('/race/bet/list', token, controller.frontBet.betList);
     // 后台Router
     // 登录
     apiBackStageRouter.post('/login', controller.backstageBasic.login);
