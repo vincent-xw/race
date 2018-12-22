@@ -22,6 +22,12 @@ module.exports = app => {
     apiFrontRouter.get('/league/list', token, controller.frontLeague.list);
     // 获取比赛列表
     apiFrontRouter.get('/race/list', token, controller.frontRace.list);
+    // 获取比赛详情
+    apiFrontRouter.get('/race/info', token, controller.frontRace.info);
+    // 投注
+    apiFrontRouter.post('/race/bet', token, controller.frontBet.bet);
+    // 投注详情
+    apiFrontRouter.post('/race/bet/detail', token, controller.frontBet.betDetail);
     // 后台Router
     // 登录
     apiBackStageRouter.post('/login', controller.backstageBasic.login);

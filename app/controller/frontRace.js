@@ -20,7 +20,7 @@ class LeagueController extends Controller {
         let query = [
             'league_id'
         ];
-        if (!this.requireCheck(query, 'get')) {
+        if (!this.requireCheck(query)) {
             return;
         }
         let {
@@ -34,6 +34,37 @@ class LeagueController extends Controller {
 
         if (raceListResult) {
             this.success(raceListResult, '查询成功');
+            return;
+        }
+        this.failed(null, '查询失败', 500);
+    }
+    /**
+     *获取比赛info
+     *
+     * @memberof FrontLeagueController
+     */
+    async info() {
+        let {
+          ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'race_id'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            race_id
+        } = ctx.req.query;
+        let raceData = {
+            race_id
+        };
+        const getRaceInfo = raceData => ctx.service.front.race.getRaceInfo(raceData);
+        const raceInfoResult = await getRaceInfo(raceData);
+
+        if (raceInfoResult) {
+            this.success(raceInfoResult, '查询成功');
             return;
         }
         this.failed(null, '查询失败', 500);

@@ -1,11 +1,12 @@
 ### 投注
 
-接口地址: ``/api/front/race/bet``
+接口地址: ``/api/front/race/bet`` done
 
 入参: 
 ```json
     {
         "race_id": "1",
+        "agent_id": "1",
         "bet_info": [
             {
                 "horse_id": "1001",
@@ -30,7 +31,10 @@
 ```json
     {
         "status": 0,
-        "msg": ""
+        "msg": "",
+        "data": {
+            "bet_id": 123456
+        }
     }
 ```
 

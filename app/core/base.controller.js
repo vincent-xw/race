@@ -73,9 +73,9 @@ class BaseController extends Controller {
      *
      * @memberof BaseController
      */
-    requireCheck(obj, type) {
+    requireCheck(obj) {
         let {ctx} = this;
-        let querySource = type === 'get' ? ctx.req.query : ctx.req.body;
+        let querySource = ctx.method === 'GET' ? ctx.req.query : ctx.req.body;
         if (obj instanceof Array) {
             for (let i = 0; i < obj.length; i++) {
                 if (querySource[obj[i]] === undefined) {

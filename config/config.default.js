@@ -1,10 +1,12 @@
 'use strict';
 
 let mysql = require('./config.mysql.js');
+let sysConf = require('./config.sys.js');
 
 module.exports = appInfo => {
     const config = exports = {
         ...mysql,
+        ...sysConf,
         onerror: {
             json(err, ctx) {
                 // json hander
