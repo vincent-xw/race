@@ -80,7 +80,7 @@
 
 ### 投注历史
 
-接口地址: ``/api/front/race/bet/history`` 
+接口地址: ``/api/front/race/bet/list`` 
 
 入参: 
 ```json

@@ -33,7 +33,7 @@ class LeagueController extends Controller {
                 page_no,
                 page_count: Math.ceil(betResult.count / 10),
                 page_size: 10,
-                list_data: [betResult.list]
+                bet_list: [betResult.list]
             };
             this.success(data, '查询成功');
             return;
