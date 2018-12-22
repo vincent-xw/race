@@ -17,8 +17,28 @@ class LeagueController extends Controller {
             ctx
         } = this;
         let {
-            
-        } = ctx.req.body;
+            bet_start_time = '',
+            bet_end_time = '',
+            page_no = 1
+        } = ctx.req.query;
+        let searchParam = {
+            bet_start_time,
+            bet_end_time,
+            page_no
+        };
+        let betList = searchParam => ctx.service.front.bet.getBetList(searchParam);
+        const betResult = await betList(searchParam);
+        if (betResult) {
+            let data = {
+                page_no,
+                page_count: Math.ceil(betResult.count / 10),
+                page_size: 10,
+                list_data: [betResult.list]
+            };
+            this.success(data, '查询成功');
+            return;
+        }
+        this.failed(null, '查询失败', 500);
     }
     /**
      *投注

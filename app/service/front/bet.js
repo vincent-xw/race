@@ -6,6 +6,54 @@ const Service = require('egg').Service;
 
 class BetService extends Service {
     /**
+     *获取投注列表
+     *
+     * @memberof BetService
+     */
+    async getBetList(betData) {
+        try {
+            // 格式化参数数组获取有效信息
+            for (const item in betData) {
+                if (betData.hasOwnProperty(item) && betData[item] === undefined) {
+                    delete betData[item];
+                }
+            }
+            let query = 'select SQL_CALC_FOUND_ROWS * from bet ';
+            let options = '';
+            if (betData.bet_start_time && betData.bet_end_time) {
+                options += ' bet_time between "'
+                        + new Date(parseInt(betData.bet_start_time, 10)).toLocaleString()
+                        + '" and "'
+                        + new Date(parseInt(betData.bet_end_time, 10)).toLocaleString() + '"';
+            }
+            let limit = '';
+            if (betData.page_no) {
+                let count = (betData.page_no - 1) * 10;
+                limit = 'limit 10 offset ' + count;
+            }
+            else {
+                limit = 'limit 10 offset 0';
+            }
+            if (options !== '') {
+                this.app.mysql.escape(query += ' where' + options + ' ' + limit);
+            }
+            else {
+                query += ' ' + limit;
+            }
+            // console.log(query);
+            let betResult = await this.app.mysql.query(query);
+            let betTableCount = await this.app.mysql.query('SELECT FOUND_ROWS();');
+
+            return {
+                list: betResult,
+                count: betTableCount[0]['FOUND_ROWS()']};
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
      *获取比赛列表
      *
      * @memberof BetService

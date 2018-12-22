@@ -60,7 +60,7 @@ class RaceService extends Service {
                 options += ' race_time between "'
                         + new Date(parseInt(raceData.start_time, 10)).toLocaleString()
                         + '" and "'
-                        + new Date(parseInt(raceData.end_time, 10)).toLocaleString() +'"';
+                        + new Date(parseInt(raceData.end_time, 10)).toLocaleString() + '"';
             }
             let league = '';
             if (raceData.league_id) {

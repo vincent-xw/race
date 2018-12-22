@@ -87,9 +87,7 @@
     {
         "bet_start_time": 1544544513119,
         "bet_end_time": 1544544513119,
-        "race_start_time": 1544544513119,
-        "race_end_time": 1544544513119,
-        
+        "page_no": "1"
     }
 ```
 
@@ -99,6 +97,9 @@
         "status": 0,
         "msg": "",
         "data": {
+            "page_no": "1",
+            "page_count": "10",
+            "page_size": "10",
             "bet_list": [
                 {
                     "bet_id": "1001",

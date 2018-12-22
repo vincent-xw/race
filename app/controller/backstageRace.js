@@ -77,7 +77,7 @@ class RaceController extends Controller {
         if (raceResult) {
             let data = {
                 page_no,
-                page_count: raceResult.count,
+                page_count: Math.ceil(raceResult.count / 10),
                 page_size: 10,
                 list_data: [raceResult.list]
             };
