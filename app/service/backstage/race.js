@@ -54,39 +54,44 @@ class RaceService extends Service {
                     delete raceData[item];
                 }
             }
-            let query = 'select SQL_CALC_FOUND_ROWS * from race ';
+            let query = 'select SQL_CALC_FOUND_ROWS * from race inner join league on race.league_id = league.league_id ';
             let options = '';
             if (raceData.start_time && raceData.end_time) {
                 options += ' race_time between "'
-                        + new Date(parseInt(raceData.start_time, 10)).toLocaleString()
+                        + new Date(parseInt(raceData.start_time, 10)).toLocaleDateString() + ' 00:00:00'
                         + '" and "'
-                        + new Date(parseInt(raceData.end_time, 10)).toLocaleString() + '"';
+                        + new Date(parseInt(raceData.end_time, 10)).toLocaleDateString() + ' 23:59:59' + '"';
             }
             let league = '';
             if (raceData.league_id) {
-                league += ' league_id = ' + raceData.league_id;
+                league += 'and league_id = ' + raceData.league_id;
+            }
+            let raceStatus = '';
+            if (raceData.race_status) {
+                raceStatus += 'and race_status = ' + raceData.race_status;
             }
             let limit = '';
             if (raceData.page_no) {
                 let count = (raceData.page_no - 1) * 10;
-                limit = 'limit 10 offset ' + count;
+                limit = ' limit 10 offset ' + count;
             }
             else {
-                limit = 'limit 10 offset 0';
+                limit = ' limit 10 offset 0';
             }
             if (options !== '' || league !== '') {
-                this.app.mysql.escape(query += ' where' + options + ' and ' + league + ' ' + limit);
+                this.app.mysql.escape(query += ' where' + options  + league + raceStatus + limit);
             }
             else {
-                query += ' ' + limit;
+                this.app.mysql.escape(query += ' ' + limit);
             }
             // console.log(query);
             let raceResult = await this.app.mysql.query(query);
             let receTableCount = await this.app.mysql.query('SELECT FOUND_ROWS();');
-
+            
             return {
                 list: raceResult,
-                count: receTableCount[0]['FOUND_ROWS()']};
+                count: receTableCount[0]['FOUND_ROWS()']
+            };
         }
         catch (error) {
             this.ctx.logger.error(new Error(error));

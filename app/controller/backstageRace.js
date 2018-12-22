@@ -63,6 +63,7 @@ class RaceController extends Controller {
             start_time = '',
             end_time = '',
             league_id = '',
+            race_status = '',
             page_no = 1
         } = ctx.req.query;
 
@@ -70,6 +71,7 @@ class RaceController extends Controller {
             start_time,
             end_time,
             league_id,
+            race_status,
             page_no
         };
         let raceList = searchParam => ctx.service.backstage.race.getRaceList(searchParam);
@@ -79,7 +81,7 @@ class RaceController extends Controller {
                 page_no,
                 page_count: Math.ceil(raceResult.count / 10),
                 page_size: 10,
-                list_data: [raceResult.list]
+                list_data: raceResult.list
             };
             this.success(data, '查询成功');
             return;
