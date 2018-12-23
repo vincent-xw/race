@@ -24,6 +24,7 @@ class BaseController extends Controller {
     success(data, msg) {
         this.init();
         if (data) {
+            data = this.formatTime(data);
             this.ctx.body = {
                 ...this.initData,
                 msg,
@@ -97,16 +98,30 @@ class BaseController extends Controller {
      * @memberof BaseController
      */
     formatTime(arr) {
+        if (!(arr instanceof Array)) {
+            arr = [arr];
+        }
         for (let index = 0; index < arr.length; index++) {
             const element = arr[index];
             for (const key in element) {
                 if (element.hasOwnProperty(key)) {
                     const subElement = element[key];
-                    if (new Date(subElement) !== "Invalid Date"){}
+                    if (subElement instanceof Array) {
+                        arr[index][key] = this.formatTime(subElement);
+                    }
+                    else if (
+                        key === 'created_time'
+                        || key === 'updated_time'
+                        || key === 'race_time'
+                        || key === 'bet_time'
+                    ) {
+                        arr[index][key] = new Date(subElement).getTime();
+                    }
                 }
             }
             
         }
+        return arr.length === 1 ? arr[0] : arr;
     }
 }
 
