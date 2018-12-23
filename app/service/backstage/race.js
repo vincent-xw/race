@@ -31,7 +31,7 @@ class RaceService extends Service {
                 item.race_id = race.insertId;
                 delete item.id;
             });
-            conn.insert('horse', horseTableData);
+            await conn.insert('horse', horseTableData);
             await conn.commit(); // 提交事务
             return true;
         }
@@ -110,10 +110,21 @@ class RaceService extends Service {
                 race_id: raceData.race_id
             };
             let raceResult = await this.app.mysql.get('race', post);
-            return raceResult || {};
+            let horseResult = await this.app.mysql.select('horse', {
+                where: post
+            });
+            let betResult = await this.app.mysql.select('bet', {
+                where: post
+            });
+            return {
+                ...raceResult,
+                horse_info: horseResult,
+                bet_info: betResult
+            };
         }
         catch (error) {
-            
+            this.ctx.logger.error(new Error(error));
+            return false;
         }
     }
     /**
@@ -124,17 +135,17 @@ class RaceService extends Service {
      * @memberof RaceService
      */
     async updateRaceById(raceData) {
-        const conn = await this.app.mysql.beginTransaction();
+        let conn = await this.app.mysql.beginTransaction();
         try {
             let race_info = await this.app.mysql.get('race', {
                 race_id: raceData.race_id
             });
             if (race_info.race_status !== 0) {
-                return 1;
+                return 2;
             }
             let raceTableData = {
                 league_id: raceData.league_id,
-                race_time: new Date(raceData.race_time).toLocaleString(),
+                race_time: this.app.moment(raceData.race_time).format('YYYY-MM-DD H:m:s'),
                 race_name: raceData.race_name,
                 updated_time: this.app.moment().format('YYYY-MM-DD H:m:s')
             };
@@ -145,11 +156,20 @@ class RaceService extends Service {
             }
             await conn.update('race', raceTableData, {
                 where: {
-                    race_id: raceTableData.race_id
+                    race_id: raceData.race_id
                 }
             });
-            await conn.commit(); // 提交事务
-            return 0;
+            await conn.delete('horse', {
+                race_id: raceData.race_id
+            });
+            let horseTableData = [] = raceData.horse_info;
+            horseTableData.map(item => {
+                item.race_id = raceData.race_id;
+                delete item.horse_id;
+            });
+            await conn.insert('horse', horseTableData);
+            await conn.commit();
+            return true;
         }
         catch (error) {
             await conn.rollback();

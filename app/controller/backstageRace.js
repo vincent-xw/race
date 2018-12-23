@@ -152,11 +152,11 @@ class RaceController extends Controller {
         const modifyRace = raceInfo => ctx.service.backstage.race.updateRaceById(raceInfo);
         const raceResult = await modifyRace(raceInfo);
 
-        if (raceResult === 0) {
+        if (raceResult) {
             this.success(null, '修改成功');
             return;
         }
-        else if (raceResult === 1) {
+        else if (raceResult === 2) {
             this.failed(null, '当前状态不允许修改比赛信息', 500);
             return;
         }

@@ -115,11 +115,10 @@ class BaseController extends Controller {
                         || key === 'race_time'
                         || key === 'bet_time'
                     ) {
-                        arr[index][key] = new Date(subElement).toLocaleString();
+                        arr[index][key] = new Date(subElement).getTime();
                     }
                 }
             }
-            
         }
         return arr.length === 1 ? arr[0] : arr;
     }
