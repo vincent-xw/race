@@ -76,8 +76,8 @@ class BetService extends Service {
                 const element = betData.bet_info[index];
                 post.push({
                     bet_id,
-                    bet_head: element.bet_head,
-                    bet_foot: element.bet_foot,
+                    bet_head: element.bet_head || 0,
+                    bet_foot: element.bet_foot || 0,
                     race_id: betData.race_id,
                     horse_id: element.horse_id,
                     agent_id: betData.agent_id,
