@@ -13,8 +13,8 @@ class AgentService extends Service {
             let agent = await this.app.mysql.insert('agent', {
                 username: agentData.agent_name,
                 password: agentData.agent_password,
-                created_time: new Date().toLocaleString(),
-                updated_time: new Date().toLocaleString(),
+                created_time: this.app.moment().format('YYYY-MM-DD H:m:s'),
+                updated_time: this.app.moment().format('YYYY-MM-DD H:m:s'),
                 agent_phone: agentData.agent_phone,
                 agent_wechat: agentData.agent_wechat,
                 agent_remark: agentData.agent_remark
@@ -35,7 +35,7 @@ class AgentService extends Service {
         try {
             let post = {
                 ...agentData,
-                'updated_time': new Date().toLocaleString()
+                'updated_time': this.app.moment().format('YYYY-MM-DD H:m:s')
             };
             for (const item in post) {
                 if (post.hasOwnProperty(item) && post[item] === undefined) {
