@@ -56,6 +56,8 @@ module.exports = app => {
     // 比赛相关
     // 创建比赛
     apiBackStageRouter.post('/race/add', token, controller.backstageRace.addRace);
+    // 获取比赛详情
+    apiBackStageRouter.get('/race/info', token, controller.backstageRace.info);
     // 修改比赛
     apiBackStageRouter.post('/race/update', token, controller.backstageRace.modifyRace);
     // 修改马匹信息

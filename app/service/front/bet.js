@@ -113,7 +113,11 @@ class BetService extends Service {
             };
             let betDetailResult = await this.app.mysql.get('bet', post);
             if (betDetailResult || betDetailResult === null) {
-                return betDetailResult === null ? {} : betDetailResult;
+                return betDetailResult === null ? {
+                    bet_detail: {}
+                } : {
+                    bet_detail: betDetailResult
+                };
             }
             return false;
         }

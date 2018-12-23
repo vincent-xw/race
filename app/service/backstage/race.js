@@ -99,6 +99,15 @@ class RaceService extends Service {
         }
     }
     /**
+     *获取比赛详情
+     *
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async getRaceInfo(raceData) {
+
+    }
+    /**
      *修改比赛
      *
      * @param {*} raceData
