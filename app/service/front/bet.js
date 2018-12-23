@@ -74,10 +74,12 @@ class BetService extends Service {
             let bet_time = new Date().toLocaleDateString();
             for (let index = 0; index < betData.bet_info.length; index++) {
                 const element = betData.bet_info[index];
+                element.bet_head = element.bet_head || 0;
+                element.bet_foot = element.bet_foot || 0;
                 post.push({
                     bet_id,
-                    bet_head: element.bet_head || 0,
-                    bet_foot: element.bet_foot || 0,
+                    bet_head: element.bet_head,
+                    bet_foot: element.bet_foot,
                     race_id: betData.race_id,
                     horse_id: element.horse_id,
                     agent_id: betData.agent_id,
