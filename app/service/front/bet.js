@@ -22,9 +22,9 @@ class BetService extends Service {
             let options = '';
             if (betData.bet_start_time && betData.bet_end_time) {
                 options += ' bet_time between "'
-                        + new Date(parseInt(betData.bet_start_time, 10)).getTime()
+                        + new Date(parseInt(betData.bet_start_time, 10)).toLocaleString()
                         + '" and "'
-                        + new Date(parseInt(betData.bet_end_time, 10)).getTime() + '"';
+                        + new Date(parseInt(betData.bet_end_time, 10)).toLocaleString() + '"';
             }
             let limit = '';
             if (betData.page_no) {
@@ -71,7 +71,7 @@ class BetService extends Service {
             }
             let post = [];
             let bet_id = new Date().getTime();
-            let bet_time = new Date().toLocaleDateString();
+            let bet_time = this.app.moment().format('YYYY-MM-DD H:m:s');
             for (let index = 0; index < betData.bet_info.length; index++) {
                 const element = betData.bet_info[index];
                 element.bet_head = element.bet_head || 0;
