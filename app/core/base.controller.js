@@ -63,10 +63,10 @@ class BaseController extends Controller {
         this.init();
         this.ctx.body = {
             ...this.initData,
-            status: 403,
+            status: 401,
             msg: '请重新登录'
         };
-        this.ctx.status = 403;
+        this.ctx.status = 401;
     }
     /**
      * @name 毕传检查
