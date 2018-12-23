@@ -78,6 +78,9 @@ class LeagueController extends Controller {
         else if (betResult === 0) {
             this.failed(null, '操作失败，当前比赛允许投注', 500);
         }
+        else if (betResult === 2) {
+            this.success(null, '操作失败，未查询到比赛');
+        }
         this.failed(null, '操作失败', 500);
     }
     /**

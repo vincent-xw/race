@@ -63,6 +63,9 @@ class BetService extends Service {
             let raceResult = await this.app.mysql.get('race', {
                 race_id: betData.race_id
             });
+            if (raceResult === null) {
+                return 2;
+            }
             if (raceResult.race_status !== 1) {
                 return 0;
             }
