@@ -19,10 +19,10 @@ class RaceService extends Service {
             // this.checkRaceData(raceData, 'insert');
             let raceTableData = {
                 league_id: raceData.league_id,
-                race_time: new Date(raceData.race_time).toLocaleString(),
+                race_time: new Date(raceData.race_time).getTime(),
                 race_name: raceData.league_name + '_比赛_' + new Date().toLocaleDateString(),
-                created_time: new Date().toLocaleString(),
-                updated_time: new Date().toLocaleString(),
+                created_time: new Date().getTime(),
+                updated_time: new Date().getTime(),
                 race_status: 0
             };
             let race = await conn.insert('race', raceTableData);
@@ -116,9 +116,9 @@ class RaceService extends Service {
             }
             let raceTableData = {
                 league_id: raceData.league_id,
-                race_time: new Date(raceData.race_time).toLocaleString(),
+                race_time: new Date(raceData.race_time).getTime(),
                 race_name: raceData.race_name,
-                updated_time: new Date().toLocaleString()
+                updated_time: new Date().getTime()
             };
             for (const item in raceTableData) {
                 if (raceTableData.hasOwnProperty(item) && raceTableData[item] === undefined) {
@@ -223,7 +223,7 @@ class RaceService extends Service {
         }
         let post = {
             race_status: 1,
-            updated_time: new Date().toLocaleString()
+            updated_time: new Date().getTime()
         };
         let race = await this.app.mysql.update('race', post, {
             where: {

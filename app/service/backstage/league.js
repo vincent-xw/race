@@ -13,8 +13,8 @@ class BackstageLeagueService extends Service {
             let league = await this.app.mysql.insert('league', {
                 'league_name': leagueData.league_name,
                 'league_remark': leagueData.league_remark,
-                'created_time': new Date().toLocaleString(),
-                'updated_time': new Date().toLocaleString()
+                'created_time': new Date().getTime(),
+                'updated_time': new Date().getTime()
             });
             return league.affectedRows === 1;
         } catch (error) {
@@ -32,7 +32,7 @@ class BackstageLeagueService extends Service {
         try {
             let post = {
                 ...leagueData,
-                'updated_time': new Date().toLocaleString()
+                'updated_time': new Date().getTime()
             };
             for (const item in post) {
                 if (post.hasOwnProperty(item) && item === 'league_id') {

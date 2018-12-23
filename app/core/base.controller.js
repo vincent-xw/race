@@ -91,6 +91,23 @@ class BaseController extends Controller {
         }
         ctx.logger.error(new Error('obj is not Array instance'));
     }
+    /**
+     *格式化时间
+     *
+     * @memberof BaseController
+     */
+    formatTime(arr) {
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            for (const key in element) {
+                if (element.hasOwnProperty(key)) {
+                    const subElement = element[key];
+                    if (new Date(subElement) !== "Invalid Date"){}
+                }
+            }
+            
+        }
+    }
 }
 
 module.exports = BaseController;
