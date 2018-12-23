@@ -29,6 +29,7 @@ class RaceService extends Service {
             let horseTableData = [] = raceData.horse_info;
             horseTableData.map(item => {
                 item.race_id = race.insertId;
+                delete item.id;
             });
             conn.insert('horse', horseTableData);
             await conn.commit(); // 提交事务
@@ -57,18 +58,18 @@ class RaceService extends Service {
             let query = 'select SQL_CALC_FOUND_ROWS * from race inner join league on race.league_id = league.league_id ';
             let options = '';
             if (raceData.start_time && raceData.end_time) {
-                options += ' race_time between "'
+                options += ' race.race_time between "'
                         + new Date(parseInt(raceData.start_time, 10)).toLocaleDateString() + ' 00:00:00'
                         + '" and "'
                         + new Date(parseInt(raceData.end_time, 10)).toLocaleDateString() + ' 23:59:59' + '"';
             }
             let league = '';
             if (raceData.league_id) {
-                league += 'and league_id = ' + raceData.league_id;
+                league += ' and race.league_id = ' + raceData.league_id;
             }
             let raceStatus = '';
             if (raceData.race_status) {
-                raceStatus += 'and race_status = ' + raceData.race_status;
+                raceStatus += ' and race.race_status = ' + raceData.race_status;
             }
             let limit = '';
             if (raceData.page_no) {
@@ -86,8 +87,7 @@ class RaceService extends Service {
             }
             // console.log(query);
             let raceResult = await this.app.mysql.query(query);
-            let receTableCount = await this.app.mysql.query('SELECT FOUND_ROWS();');
-            
+            let receTableCount = await this.app.mysql.query('SELECT FOUND_ROWS();');            
             return {
                 list: raceResult,
                 count: receTableCount[0]['FOUND_ROWS()']
