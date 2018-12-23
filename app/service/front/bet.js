@@ -108,10 +108,8 @@ class BetService extends Service {
      */
     async getBetDetail(betData) {
         try {
-            let post = {
-                bet_id: betData.bet_id
-            };
-            let betDetailResult = await this.app.mysql.get('bet', post);
+            let query = 'select * from bet inner join horse on bet.horse_id = horse.horse_id where bet.bet_id = ' + betData.bet_id;
+            let betDetailResult = await this.app.mysql.query(query);
             if (betDetailResult || betDetailResult === null) {
                 return betDetailResult === null ? {
                     bet_detail: {}

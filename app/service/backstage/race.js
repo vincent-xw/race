@@ -105,7 +105,16 @@ class RaceService extends Service {
      * @memberof RaceService
      */
     async getRaceInfo(raceData) {
-
+        try {
+            let post = {
+                race_id: raceData.race_id
+            };
+            let raceResult = await this.app.mysql.get('race', post);
+            return raceResult || {};
+        }
+        catch (error) {
+            
+        }
     }
     /**
      *修改比赛
