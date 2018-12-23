@@ -54,7 +54,7 @@ class BetService extends Service {
         }
     }
     /**
-     *获取比赛列表
+     *投注比赛
      *
      * @memberof BetService
      */

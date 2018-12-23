@@ -14,7 +14,8 @@ class RaceService extends Service {
         try {
             let raceResult = await this.app.mysql.select('race', {
                 where: {
-                    league_id: leagueData.league_id
+                    league_id: leagueData.league_id,
+                    race_status: 1
                 }
             });
             if (raceResult) {
