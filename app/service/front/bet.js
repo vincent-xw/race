@@ -117,6 +117,7 @@ class BetService extends Service {
             if (betDetailResult || betDetailResult === null) {
                 let raceResult = {};
                 if (betDetailResult) {
+                    betDetailResult = betDetailResult[0];
                     let race_id = betDetailResult.race_id;
 
                     raceResult = await this.app.mysql.get('race', {
@@ -128,7 +129,9 @@ class BetService extends Service {
                 } : {
                     bet_detail: {
                         ...betDetailResult,
-                        race_info: raceResult
+                        race_info: {
+                            ...raceResult
+                        }
                     }
                 };
             }

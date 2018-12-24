@@ -61,15 +61,13 @@ class FrontController extends Controller {
         ctx.cookies.set(app.config.auth_cookie_name, null);
         this.success(null, '注销成功');
     }
-    // 登录获取基本信息
-    info() {
-        let user = this.ctx.request.user;
-        if (user) {
-            this.success(user);
-        }
-        else {
-            this.needAuth();
-        }
+    /**
+     *修改面膜
+     *
+     * @memberof FrontController
+     */
+    changePwd() {
+        
     }
 
 }

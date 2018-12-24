@@ -109,13 +109,13 @@ class BaseController extends Controller {
                     if (subElement instanceof Array) {
                         arr[index][key] = this.formatTime(subElement);
                     }
-                    else if (
-                        key === 'created_time'
-                        || key === 'updated_time'
-                        || key === 'race_time'
-                        || key === 'bet_time'
-                    ) {
+                    else if (subElement !== null && subElement.constructor === Date) {
                         arr[index][key] = new Date(subElement).getTime();
+                    }
+                    else if (subElement !== null && typeof subElement === 'object') {
+                        if (subElement.constructor === Object) {
+                            arr[index][key] = this.formatTime(subElement);
+                        }
                     }
                 }
             }
