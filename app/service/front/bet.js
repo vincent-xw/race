@@ -26,19 +26,23 @@ class BetService extends Service {
                         + '" and "'
                         + new Date(parseInt(betData.bet_end_time, 10)).toLocaleString() + '"';
             }
+            let agent = '';
+            if (betData.agent_id) {
+                agent += ' and agent_id = ' + betData.agent_id;
+            }
             let limit = '';
             if (betData.page_no) {
                 let count = (betData.page_no - 1) * 10;
-                limit = 'limit 10 offset ' + count;
+                limit = ' limit 10 offset ' + count;
             }
             else {
-                limit = 'limit 10 offset 0';
+                limit = ' limit 10 offset 0';
             }
             if (options !== '') {
-                this.app.mysql.escape(query += ' where' + options + ' ' + limit);
+                this.app.mysql.escape(query += ' where' + options + agent + limit);
             }
             else {
-                query += ' ' + limit;
+                this.app.mysql.escape(query += ' ' + limit);
             }
             // console.log(query);
             let betResult = await this.app.mysql.query(query);
@@ -111,10 +115,21 @@ class BetService extends Service {
             let query = 'select * from bet inner join horse on bet.horse_id = horse.horse_id where bet.bet_id = ' + betData.bet_id;
             let betDetailResult = await this.app.mysql.query(query);
             if (betDetailResult || betDetailResult === null) {
+                let raceResult = {};
+                if (betDetailResult) {
+                    let race_id = betDetailResult.race_id;
+
+                    raceResult = await this.app.mysql.get('race', {
+                        race_id
+                    });
+                }
                 return betDetailResult === null ? {
                     bet_detail: {}
                 } : {
-                    bet_detail: betDetailResult
+                    bet_detail: {
+                        ...betDetailResult,
+                        race_info: raceResult
+                    }
                 };
             }
             return false;

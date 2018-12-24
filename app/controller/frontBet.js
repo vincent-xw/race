@@ -21,11 +21,15 @@ class LeagueController extends Controller {
             bet_end_time = '',
             page_no = 1
         } = ctx.req.query;
+        let agent_id = ctx.request.user;
         let searchParam = {
             bet_start_time,
             bet_end_time,
-            page_no
+            page_no,
+            agent_id
         };
+        
+        
         let betList = searchParam => ctx.service.front.bet.getBetList(searchParam);
         const betResult = await betList(searchParam);
         if (betResult) {
