@@ -18,6 +18,8 @@ module.exports = app => {
     apiFrontRouter.post('/login', controller.frontBasic.login);
     // 注销
     apiFrontRouter.get('/logout', token, controller.frontBasic.logout);
+    // 修改密码
+    apiFrontRouter.post('/resetpwd', token, controller.frontBasic.changePwd);
     // 获取联赛列表
     apiFrontRouter.get('/league/list', token, controller.frontLeague.list);
     // 获取比赛列表

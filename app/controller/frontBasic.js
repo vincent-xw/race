@@ -66,8 +66,33 @@ class FrontController extends Controller {
      *
      * @memberof FrontController
      */
-    changePwd() {
-        
+    async changePwd() {
+        let {
+            ctx
+        } = this;
+        let query = [
+            'oldPassword',
+            'newPassword'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            oldPassword,
+            newPassword
+        } = ctx.req.body;
+        let param = {
+            oldPassword,
+            newPassword
+        };
+        const change = param => ctx.service.user.changeUserPwd(param);
+        const changeResult = await change(param);
+        if (changeResult.status === 0) {
+            this.logout();
+            this.success(null, '操作成功，已自动注销，请您重新登录');
+            return;
+        }
+        this.failed(null, changeResult.msg || '操作失败，请稍后再试', 500);
     }
 
 }

@@ -28,8 +28,6 @@ class LeagueController extends Controller {
             page_no,
             agent_id
         };
-        
-        
         let betList = searchParam => ctx.service.front.bet.getBetList(searchParam);
         const betResult = await betList(searchParam);
         if (betResult) {

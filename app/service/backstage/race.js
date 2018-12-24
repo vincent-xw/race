@@ -252,23 +252,28 @@ class RaceService extends Service {
      * @memberof RaceService
      */
     async startRaceStatusById(raceData) {
-        let race_info = await this.app.mysql.get('race', {
-            race_id: raceData.race_id
-        });
-        // 如果当前状态是已结束
-        if (race_info.race_status !== 0) {
-            return 0;
-        }
-        let post = {
-            race_status: 1,
-            updated_time: this.app.moment().format('YYYY-MM-DD H:m:s')
-        };
-        let race = await this.app.mysql.update('race', post, {
-            where: {
+        try {
+            let race_info = await this.app.mysql.get('race', {
                 race_id: raceData.race_id
+            });
+            // 如果当前状态是已结束
+            if (race_info.race_status !== 0) {
+                return 0;
             }
-        });
-        return race.affectedRows === 1;
+            let post = {
+                race_status: 1,
+                updated_time: this.app.moment().format('YYYY-MM-DD H:m:s')
+            };
+            let race = await this.app.mysql.update('race', post, {
+                where: {
+                    race_id: raceData.race_id
+                }
+            });
+            return race.affectedRows === 1;
+        } catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
     }
     /**
      *根据ID设置比赛赔率
