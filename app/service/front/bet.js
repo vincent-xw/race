@@ -22,9 +22,9 @@ class BetService extends Service {
             let options = '';
             if (betData.bet_start_time && betData.bet_end_time) {
                 options += ' bet_time between "'
-                        + new Date(parseInt(betData.bet_start_time, 10)).toLocaleString()
+                        + new Date(parseInt(betData.bet_start_time, 10)).toLocaleDateString() + ' 00:00:00'
                         + '" and "'
-                        + new Date(parseInt(betData.bet_end_time, 10)).toLocaleString() + '"';
+                        + new Date(parseInt(betData.bet_end_time, 10)).toLocaleDateString() + ' 23:59:59' + '"';
             }
             let agent = '';
             if (betData.agent_id) {
