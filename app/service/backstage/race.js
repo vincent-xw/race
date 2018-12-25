@@ -111,7 +111,10 @@ class RaceService extends Service {
             };
             let raceResult = await this.app.mysql.get('race', post);
             let horseResult = await this.app.mysql.select('horse', {
-                where: post
+                where: {
+                    ...post,
+                    horse_status: 0
+                }
             });
             let betResult = await this.app.mysql.select('bet', {
                 where: post
