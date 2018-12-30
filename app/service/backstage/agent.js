@@ -47,7 +47,6 @@ class AgentService extends Service {
                 }
             }
             let agent = await this.app.mysql.update('agent', post);
-            this.ctx.logger.info('update successful, updated ' + agent.affectedRows + 'rows');
             return agent.affectedRows === 1 || agent.affectedRows === 0;
         }
         catch (error) {
@@ -71,7 +70,7 @@ class AgentService extends Service {
                     agent_name: element.username,
                     agent_phone: element.agent_phone,
                     agent_wechat: element.agent_wechat,
-                    agent_ramark: element.agent_ramark
+                    agent_remark: element.agent_remark
                 });
             }
             return {
