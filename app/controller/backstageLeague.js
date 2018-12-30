@@ -65,10 +65,10 @@ class BackstageLeagueController extends Controller {
         const leagueResult = await updateLeague(league_id, league_name, league_remark);
 
         if (leagueResult) {
-            this.success(null, '更新成功');
+            this.success(null, '联赛更新成功');
             return;
         }
-        this.failed(null, '更新失败', 500);
+        this.failed(null, '联赛更新失败', 500);
     }
     /**
      *获取联赛列表
@@ -83,10 +83,10 @@ class BackstageLeagueController extends Controller {
         const leagueResult = await leagueList();
 
         if (leagueResult) {
-            this.success(leagueResult, '获取成功');
+            this.success(leagueResult, '联赛获取成功');
             return;
         }
-        this.failed(null, '获取失败', 500);
+        this.failed(null, '联赛获取失败', 500);
     }
     /**
      *删除联赛
@@ -112,10 +112,10 @@ class BackstageLeagueController extends Controller {
         const leagueResult = await removeLeague(league_id);
 
         if (leagueResult) {
-            this.success(null, '删除成功');
+            this.success(null, '联赛删除成功');
             return;
         }
-        this.failed(null, '删除失败', 500);
+        this.failed(null, '联赛删除失败', 500);
 
     }
 }

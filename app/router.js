@@ -76,6 +76,8 @@ module.exports = app => {
     apiBackStageRouter.post('/race/horse/setScore', token, controller.backstageRace.setScore);
     // 结束比赛
     apiBackStageRouter.post('/race/end', token, controller.backstageRace.endRace);
+    // 发布成绩
+    apiBackStageRouter.post('/race/score/release', token, controller.backstageRace.releaseScore);
     // 删除投注记录
     apiBackStageRouter.post('/race/bet/delete', token, controller.backstageRace.deleteBet);
 };

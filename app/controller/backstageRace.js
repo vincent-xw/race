@@ -434,6 +434,42 @@ class RaceController extends Controller {
         }
         this.failed(null, '操作失败', 500);
     }
+
+    /**
+     *发布比赛成绩
+     *
+     * @memberof RaceController
+     */
+    async releaseScore() {
+        let {
+            ctx
+        } = this;
+        // 检查参数毕传
+        let query = [
+            'race_id'
+        ];
+        if (!this.requireCheck(query)) {
+            return;
+        }
+        let {
+            race_id
+        } = ctx.req.body;
+        const raceInfo = {
+            race_id
+        };
+        const modifyRace = raceInfo => ctx.service.backstage.race.releaseScoreById(raceInfo);
+        const raceResult = await modifyRace(raceInfo);
+
+        if (raceResult) {
+            this.success(null, '发布成功');
+            return;
+        }
+        else if (raceResult === 2) {
+            this.failed(null, '当前状态不允许发布比赛成绩', 500);
+            return;
+        }
+        this.failed(null, '发布失败', 500);
+    }
 }
 
 module.exports = RaceController;

@@ -353,7 +353,7 @@ class RaceService extends Service {
                 for (let index = 0; index < betInfo.length; index++) {
                     const element = betInfo[index];
                     element.head_win_count = element.bet_head * head_odds;
-                    element.win_count += element.head_win_count ;
+                    element.win_count += element.head_win_count;
                     await conn.update('bet', element, {
                         where: {
                             bet_id: element.bet_id
@@ -425,6 +425,37 @@ class RaceService extends Service {
                 bet_id: raceData.bet_id
             });
             return deleteStatus.affectedRows === 1;
+        }
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
+    }
+    /**
+     *发布成绩
+     *
+     * @param {*} raceData
+     * @memberof RaceService
+     */
+    async releaseScoreById(raceData) {
+        try {
+            let race_info = await this.app.mysql.get('race', {
+                race_id: raceData.race_id
+            });
+            // 如果当前状态是已设置赔率
+            if (race_info.race_status !== 3) {
+                return 2;
+            }
+
+            let post = {
+                race_status: 4
+            };
+            let changeStatus = await this.app.mysql.update('race', post, {
+                where: {
+                    race_id: raceData.race_id
+                }
+            });
+            return changeStatus.affectedRows === 1 ? 1 : false;
         }
         catch (error) {
             this.ctx.logger.error(new Error(error));
