@@ -108,7 +108,7 @@ class BackstageLeagueController extends Controller {
         let {
             league_id
         } = ctx.req.body;
-        const removeLeague = (league_id) => ctx.service.backstage.league.removeLeagueByLeagueID(league_id);
+        const removeLeague = league_id => ctx.service.backstage.league.removeLeagueByLeagueID(league_id);
         const leagueResult = await removeLeague(league_id);
 
         if (leagueResult) {

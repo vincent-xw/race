@@ -45,7 +45,7 @@ module.exports = app => {
     // 获取联赛列表
     apiBackStageRouter.get('/league/list', token, controller.backstageLeague.getLeagueList);
     // 删除联赛记录
-    apiBackStageRouter.post('/league/delete', token, controller.backstageLeague.removeLeague);   
+    apiBackStageRouter.post('/league/delete', token, controller.backstageLeague.removeLeague);
     // 代理相关
     // 新增代理
     apiBackStageRouter.post('/agent/add', token, controller.backstageAgent.addAgent);
