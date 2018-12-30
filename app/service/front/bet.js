@@ -18,7 +18,7 @@ class BetService extends Service {
                     delete betData[item];
                 }
             }
-            let query = 'select SQL_CALC_FOUND_ROWS * from bet ';
+            let query = 'select SQL_CALC_FOUND_ROWS * from bet left join race on bet.race_id = race.race_id ';
             let options = '';
             if (betData.bet_start_time && betData.bet_end_time) {
                 options += ' bet_time between "'
@@ -39,10 +39,10 @@ class BetService extends Service {
                 limit = ' limit 10 offset 0';
             }
             if (options !== '') {
-                this.app.mysql.escape(query += ' where' + options + agent + limit);
+                this.app.mysql.escape(query += ' where' + options + agent + limit );
             }
             else {
-                this.app.mysql.escape(query += ' ' + limit);
+                this.app.mysql.escape(query += ' ' + limit );
             }
             // console.log(query);
             let betResult = await this.app.mysql.query(query);
@@ -50,7 +50,8 @@ class BetService extends Service {
 
             return {
                 list: betResult,
-                count: betTableCount[0]['FOUND_ROWS()']};
+                count: betTableCount[0]['FOUND_ROWS()']
+            };
         }
         catch (error) {
             this.ctx.logger.error(new Error(error));
