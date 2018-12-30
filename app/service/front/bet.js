@@ -112,27 +112,29 @@ class BetService extends Service {
      */
     async getBetDetail(betData) {
         try {
-            let query = 'select * from bet inner join horse on bet.horse_id = horse.horse_id where bet.bet_id = ' + betData.bet_id;
+            let query = 'select * from bet left join horse on bet.horse_id = horse.horse_id where bet.bet_id = '
+                        + betData.bet_id;
             let betDetailResult = await this.app.mysql.query(query);
             if (betDetailResult || betDetailResult === null) {
                 let raceResult = {};
                 if (betDetailResult) {
-                    betDetailResult = betDetailResult[0];
-                    let race_id = betDetailResult.race_id;
+                    let race_id = betDetailResult[0].race_id;
 
                     raceResult = await this.app.mysql.get('race', {
                         race_id
                     });
                 }
-                return betDetailResult === null ? {
-                    bet_detail: {}
-                } : {
-                    bet_detail: {
-                        ...betDetailResult,
+                let bet_detail = [];
+                betDetailResult.map(item => {
+                    bet_detail.push({
+                        ...item,
                         race_info: {
                             ...raceResult
                         }
-                    }
+                    });
+                });
+                return {
+                    bet_detail: bet_detail
                 };
             }
             return false;
