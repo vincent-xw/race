@@ -19,8 +19,12 @@ class AgentService extends Service {
                 agent_wechat: agentData.agent_wechat,
                 agent_remark: agentData.agent_remark
             });
+
             return agent.affectedRows === 1;
         } catch (error) {
+            if (error.sqlState === '23000') {
+                return 3;
+            }
             this.ctx.logger.error(new Error(error));
             return false;
         }

@@ -42,8 +42,12 @@ class AgentController extends Controller {
         const insertAgent = agentInfo => ctx.service.backstage.agent.insertAgent(agentInfo);
         const agentResult = await insertAgent(agentInfo);
 
-        if (agentResult) {
+        if (agentResult === true) {
             this.success(null, '创建成功');
+            return;
+        }
+        else if (agentResult === 3) {
+            this.failed(null, '已存在相同代理名称，创建失败', 500);
             return;
         }
         this.failed(null, '创建失败', 500);

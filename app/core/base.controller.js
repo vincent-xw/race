@@ -98,29 +98,35 @@ class BaseController extends Controller {
      * @memberof BaseController
      */
     formatTime(arr) {
-        if (!(arr instanceof Array)) {
-            arr = [arr];
-        }
-        for (let index = 0; index < arr.length; index++) {
-            const element = arr[index];
-            for (const key in element) {
-                if (element.hasOwnProperty(key)) {
-                    const subElement = element[key];
-                    if (subElement instanceof Array) {
-                        arr[index][key] = this.formatTime(subElement);
-                    }
-                    else if (subElement !== null && subElement.constructor === Date) {
-                        arr[index][key] = new Date(subElement).getTime();
-                    }
-                    else if (subElement !== null && typeof subElement === 'object') {
-                        if (subElement.constructor === Object) {
+        try {
+            if (!(arr instanceof Array)) {
+                arr = [arr];
+            }
+            for (let index = 0; index < arr.length; index++) {
+                const element = arr[index];
+                for (const key in element) {
+                    if (element.hasOwnProperty(key)) {
+                        const subElement = element[key];
+                        if (subElement instanceof Array) {
                             arr[index][key] = this.formatTime(subElement);
+                        }
+                        else if (subElement !== null && subElement !== undefined && subElement.constructor === Date) {
+                            arr[index][key] = new Date(subElement).getTime();
+                        }
+                        else if (subElement !== null && typeof subElement === 'object') {
+                            if (subElement.constructor === Object) {
+                                arr[index][key] = this.formatTime(subElement);
+                            }
                         }
                     }
                 }
             }
+            return arr.length === 1 ? arr[0] : arr;
         }
-        return arr.length === 1 ? arr[0] : arr;
+        catch (error) {
+            this.ctx.logger.error(new Error(error));
+            return false;
+        }
     }
 }
 
