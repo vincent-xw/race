@@ -116,9 +116,8 @@ class RaceService extends Service {
                     horse_status: 0
                 }
             });
-            let betResult = await this.app.mysql.select('bet', {
-                where: post
-            });
+            let sql = 'select * from bet left join agent on bet.agent_id = agent.id left join horse on bet.horse_id = horse.horse_id where bet.race_id = ' + raceData.race_id;
+            let betResult = await this.app.mysql.query(sql);
             return {
                 ...raceResult,
                 horse_info: horseResult,
@@ -354,7 +353,11 @@ class RaceService extends Service {
                     const element = betInfo[index];
                     element.head_win_count = element.bet_head * head_odds;
                     element.win_count += element.head_win_count;
-                    await conn.update('bet', element, {
+                    let post = {
+                        ...element
+                    };
+                    delete post.id;
+                    await conn.update('bet', post, {
                         where: {
                             bet_id: element.bet_id
                         }
@@ -367,7 +370,11 @@ class RaceService extends Service {
                     const element = betInfo[index];
                     element.foot_win_count = element.bet_foot * foot_odds;
                     element.win_count += element.foot_win_count;
-                    await conn.update('bet', element, {
+                    let post = {
+                        ...element
+                    };
+                    delete post.id;
+                    await conn.update('bet', post, {
                         where: {
                             bet_id: element.bet_id
                         }
