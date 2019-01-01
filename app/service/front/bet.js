@@ -64,7 +64,7 @@ class BetService extends Service {
      * @memberof BetService
      */
     async doBet(betData) {
-        const conn = this.app.mysql.beginTransaction();
+        const conn = await this.app.mysql.beginTransaction();
         try {
             let raceResult = await this.app.mysql.get('race', {
                 race_id: betData.race_id
@@ -90,7 +90,7 @@ class BetService extends Service {
                     horse_id: element.horse_id,
                     agent_id: betData.agent_id,
                     bet_time,
-                    all_count: (+element.bet_head + element.bet_foot) * this.config.sys.ticket
+                    all_count: (parseInt(element.bet_head) + parseInt(element.bet_foot)) * this.config.sys.ticket
                 });
                 let horse_info = await conn.get('horse', {
                     horse_id: element.horse_id
@@ -116,7 +116,8 @@ class BetService extends Service {
                     }
                 });
             }
-            let betResult = await conn.insert('bet', post);
+            await conn.insert('bet', post);
+            let betResult = await conn.commit();
             if (betResult) {
                 return {
                     bet_id
@@ -125,6 +126,7 @@ class BetService extends Service {
             return false;
         }
         catch (error) {
+            await conn.rollback();
             this.ctx.logger.error(new Error(error));
             return false;
         }
@@ -140,9 +142,9 @@ class BetService extends Service {
             let query = 'select * from bet left join horse on bet.horse_id = horse.horse_id where bet.bet_id = '
                         + betData.bet_id;
             let betDetailResult = await this.app.mysql.query(query);
-            if (betDetailResult || betDetailResult === null) {
+            if (betDetailResult || betDetailResult !== null) {
                 let raceResult = {};
-                if (betDetailResult) {
+                if (betDetailResult.length !== 0) {
                     let race_id = betDetailResult[0].race_id;
 
                     raceResult = await this.app.mysql.get('race', {

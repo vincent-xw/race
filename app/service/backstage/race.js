@@ -385,7 +385,7 @@ class RaceService extends Service {
             return true;
         }
         catch (error) {
-            conn.rollback();
+            await conn.rollback();
             this.ctx.logger.error(new Error(error));
             return false;
         }
