@@ -64,6 +64,7 @@ class BetService extends Service {
      * @memberof BetService
      */
     async doBet(betData) {
+        const conn = this.app.mysql.beginTransaction();
         try {
             let raceResult = await this.app.mysql.get('race', {
                 race_id: betData.race_id
@@ -91,8 +92,31 @@ class BetService extends Service {
                     bet_time,
                     all_count: (+element.bet_head + element.bet_foot) * this.config.sys.ticket
                 });
+                let horse_info = await conn.get('horse', {
+                    horse_id: element.horse_id
+                });
+                let head_left_limit = horse_info.head_limit - element.bet_head;
+                let foot_left_limit = horse_info.foot_limit - element.bet_foot;
+                if (head_left_limit < 0) {
+                    // 当某个马匹的头可投注数量不足是拒绝投注
+                    return 3;
+                }
+                if (foot_left_limit < 0) {
+                    // 当某个马匹的脚可投注数量不足是拒绝投注
+                    return 4;
+                }
+                let horse_post = {
+                    head_left_limit: head_left_limit,
+                    foot_left_limit: foot_left_limit
+                };
+                // 更新马匹可投注数量
+                await conn.update('horse', horse_post, {
+                    where: {
+                        horse_id: element.horse_id
+                    }
+                });
             }
-            let betResult = await this.app.mysql.insert('bet', post);
+            let betResult = await conn.insert('bet', post);
             if (betResult) {
                 return {
                     bet_id

@@ -82,7 +82,13 @@ class LeagueController extends Controller {
             return;
         }
         else if (betResult === 2) {
-            this.success(null, '操作失败，未查询到比赛');
+            this.failed(null, '操作失败，未查询到比赛', 502);
+        }
+        else if (betResult === 3) {
+            this.failed(null, '操作失败，有马匹的头投注数量超过限额，请刷新页面获取最新投注限额', 503);
+        }
+        else if (betResult === 4) {
+            this.failed(null, '操作失败，有马匹的脚投注数量超过限额，请刷新页面获取最新投注限额', 504);
         }
         this.failed(null, '操作失败', 500);
     }
