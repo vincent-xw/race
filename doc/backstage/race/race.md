@@ -167,8 +167,8 @@
                         "bet_time": 1544544513119,
                         "bet_head": 10,
                         "bet_foot": 20,
-                        "head_odds": 10,
-                        "foot_odds": 8,
+                        "first_head_odds": 10,
+                        "first_foot_odds": 8,
                         "all_count": 100,
                         "win_count": 80
                     }
@@ -317,8 +317,8 @@
 ```json
     {
         "race_id": "1",
-        "head_odds": 150,
-        "foot_odds": 85
+        "first_head_odds": 150,
+        "first_foot_odds": 85
     }
 ```
 参数说明
@@ -326,8 +326,8 @@
 |参数名称|required|说明|
 |----|----|----|
 |race_id|y|string比赛ID|
-|head_odds|y|int头赔率， 默认*10，前端展示/10|
-|foot_odds|y|int脚赔率， 默认*10，前端展示/10|
+|first_head_odds|y|int头赔率， 默认*10，前端展示/10|
+|first_foot_odds|y|int脚赔率， 默认*10，前端展示/10|
 
 响应: 
 ```json
@@ -345,8 +345,8 @@
 ```json
     {
         "race_id": "1",
-        "head_odds": "10",
-        "foot_odds": "8",
+        "first_head_odds": "10",
+        "first_foot_odds": "8",
         "horse_info":[
             {
                 "horse_id":1,
@@ -360,8 +360,8 @@
 |参数名称|required|说明|
 |----|----|----|
 |race_id|y|string 比赛ID，每条比赛的状态进行更新|
-|head_odds|y|string头赔率|
-|foot_odds|y|string脚赔率|
+|first_head_odds|y|string头赔率|
+|first_foot_odds|y|string脚赔率|
 
 响应: 
 ```json

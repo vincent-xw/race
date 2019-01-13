@@ -294,21 +294,27 @@ class RaceController extends Controller {
         // 检查参数毕传
         let query = [
             'race_id',
-            'head_odds',
-            'foot_odds'
+            'first_head_odds',
+            'first_foot_odds',
+            'second_foot_odds',
+            'third_foot_odds'
         ];
         if (!this.requireCheck(query)) {
             return;
         }
         let {
             race_id,
-            head_odds,
-            foot_odds
+            first_head_odds,
+            first_foot_odds,
+            second_foot_odds,
+            third_foot_odds
         } = ctx.req.body;
         let raceInfo = {
             race_id,
-            head_odds,
-            foot_odds
+            first_head_odds,
+            first_foot_odds,
+            second_foot_odds,
+            third_foot_odds
         };
         const setOdds = raceInfo => ctx.service.backstage.race.setOddsById(raceInfo);
         const raceResult = await setOdds(raceInfo);

@@ -293,8 +293,10 @@ class RaceService extends Service {
                 return 0;
             }
             let post = {
-                head_odds: raceData.head_odds,
-                foot_odds: raceData.foot_odds,
+                first_head_odds: raceData.first_head_odds,
+                first_foot_odds: raceData.first_foot_odds,
+                second_foot_odds: raceData.second_foot_odds,
+                third_foot_odds: raceData.third_foot_odds,
                 race_status: 2
             };
             let setOdds = await this.app.mysql.update('race', post, {
@@ -322,8 +324,10 @@ class RaceService extends Service {
                 race_id: raceData.race_id
             });
             // 获取赔率信息
-            let head_odds = race_info.head_odds;
-            let foot_odds = race_info.foot_odds;
+            let first_head_odds = race_info.first_head_odds;
+            let first_foot_odds = race_info.first_foot_odds;
+            let second_foot_odds = race_info.second_foot_odds;
+            let third_foot_odds = race_info.third_foot_odds;
             // 如果当前状态是已发布
             if (race_info.race_status === 0) {
                 return 0;
@@ -351,7 +355,7 @@ class RaceService extends Service {
             if (+raceData.horse_score === 1) {
                 for (let index = 0; index < betInfo.length; index++) {
                     const element = betInfo[index];
-                    element.head_win_count = element.bet_head * head_odds;
+                    element.head_win_count = element.bet_head * first_head_odds;
                     element.win_count += element.head_win_count;
                     let post = {
                         ...element
@@ -364,11 +368,28 @@ class RaceService extends Service {
                     });
                 }
             }
-            // 如果是前三名则计算成绩并更新脚投注
-            if (+raceData.horse_score <= 3) {
+            // 如果是第二名则计算成绩并更新脚投注
+            if (+raceData.horse_score === 2) {
                 for (let index = 0; index < betInfo.length; index++) {
                     const element = betInfo[index];
-                    element.foot_win_count = element.bet_foot * foot_odds;
+                    element.foot_win_count = element.bet_foot * second_foot_odds;
+                    element.win_count += element.foot_win_count;
+                    let post = {
+                        ...element
+                    };
+                    delete post.id;
+                    await conn.update('bet', post, {
+                        where: {
+                            bet_id: element.bet_id
+                        }
+                    });
+                }
+            }
+            // 如果是第三名则计算成绩并更新脚投注
+            if (+raceData.horse_score === 3) {
+                for (let index = 0; index < betInfo.length; index++) {
+                    const element = betInfo[index];
+                    element.foot_win_count = element.bet_foot * third_foot_odds;
                     element.win_count += element.foot_win_count;
                     let post = {
                         ...element
