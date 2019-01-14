@@ -18,7 +18,7 @@ class BetService extends Service {
                     delete betData[item];
                 }
             }
-            let query = 'select SQL_CALC_FOUND_ROWS * from bet left join race on bet.race_id = race.race_id ';
+            let query = 'select SQL_CALC_FOUND_ROWS DISTINCT bet_id, race_name, bet_time from bet left join race on bet.race_id = race.race_id ';
             let options = '';
             if (betData.bet_start_time && betData.bet_end_time) {
                 options += ' bet_time between "'
