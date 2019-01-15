@@ -54,6 +54,7 @@ class LeagueController extends Controller {
         // 检查参数毕传
         let query = [
             'race_id',
+            'league_id',
             'agent_id',
             'bet_info'
         ];
@@ -62,11 +63,13 @@ class LeagueController extends Controller {
         }
         let {
             race_id,
+            league_id,
             agent_id,
             bet_info
         } = ctx.req.body;
         let betData = {
             race_id,
+            league_id,
             agent_id,
             bet_info
         };

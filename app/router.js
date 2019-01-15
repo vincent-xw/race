@@ -80,4 +80,6 @@ module.exports = app => {
     apiBackStageRouter.post('/race/score/release', token, controller.backstageRace.releaseScore);
     // 删除投注记录
     apiBackStageRouter.post('/race/bet/delete', token, controller.backstageRace.deleteBet);
+    // 统计接口
+    apiBackStageRouter.post('/stat', token, controller.backstageStat.stat);
 };

@@ -87,6 +87,7 @@ class BetService extends Service {
                     bet_head: element.bet_head,
                     bet_foot: element.bet_foot,
                     race_id: betData.race_id,
+                    league_id: betData.league_id,
                     horse_id: element.horse_id,
                     agent_id: betData.agent_id,
                     bet_time,
