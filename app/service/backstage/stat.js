@@ -13,7 +13,7 @@ class StatService extends Service {
             let {
                 start_time = this.app.moment(),
                 end_time = this.app.moment().format('YYYY-01-01'),
-                league_id = '1',
+                league_id = '',
                 stat_type = 'year'
             } = statData;
             // 获取时间参数
@@ -32,7 +32,10 @@ class StatService extends Service {
                 sqlQuery += ' and league_id = ' + league_id;
             }
             sqlQuery = 'select ' + fields + ' ' + sqlQuery + ' GROUP BY DATE_FORMAT(bet_time,\'' + formatStr + '\')';
-            
+            let statResult = await this.app.mysql.query(sqlQuery);         
+            return {
+                list: statResult
+            };
         }
         catch (error) {
             this.ctx.logger.error(new Error(error));
