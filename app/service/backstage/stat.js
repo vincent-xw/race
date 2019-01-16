@@ -32,7 +32,7 @@ class StatService extends Service {
                 sqlQuery += ' and league_id = ' + league_id;
             }
             sqlQuery = 'select ' + fields + ' ' + sqlQuery + ' GROUP BY DATE_FORMAT(bet_time,\'' + formatStr + '\')';
-            let statResult = await this.app.mysql.query(sqlQuery);         
+            let statResult = await this.app.mysql.query(sqlQuery);
             return {
                 list: statResult
             };
