@@ -22,7 +22,7 @@ class StatController extends Controller {
         } = this;
         let {
             league_id,
-            stat_type
+            type
         } = ctx.req.body;
         let start_time = ctx.req.body.date[0];
         let end_time = ctx.req.body.date[1];
@@ -30,7 +30,7 @@ class StatController extends Controller {
             start_time,
             end_time,
             league_id,
-            stat_type
+            type
         };
         const getStat = statInfo => ctx.service.backstage.stat.getStat(statInfo);
         const statResult = await getStat(statInfo);
