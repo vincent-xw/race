@@ -12,11 +12,13 @@ class RaceService extends Service {
      */
     async getRaceList(leagueData) {
         try {
+            let searchQuery = {
+                league_id: leagueData.league_id,
+                race_time: this.app.moment().format('YYYY-MM-DD 00:00:00'),
+                race_status: 1
+            };
             let raceResult = await this.app.mysql.select('race', {
-                where: {
-                    league_id: leagueData.league_id,
-                    race_status: 1
-                }
+                where: searchQuery
             });
             if (raceResult) {
                 return {
