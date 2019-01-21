@@ -116,7 +116,10 @@ class RaceService extends Service {
                     horse_status: 0
                 }
             });
-            let sql = 'select * from bet left join agent on bet.agent_id = agent.id left join horse on bet.horse_id = horse.horse_id where bet.race_id = ' + raceData.race_id;
+            let sql = 'select DISTINCT(bet.bet_id), username, horse_name,\
+                         bet_head, bet_foot, bet_time, all_count, win_count\
+                         from bet left join agent on bet.agent_id = agent.id \
+                         left join horse on bet.horse_id = horse.horse_id where bet.race_id = ' + raceData.race_id;
             let betResult = await this.app.mysql.query(sql);
             return {
                 ...raceResult,
