@@ -16,13 +16,14 @@ class RaceService extends Service {
     async insertRace(raceData) {
         const conn = await this.app.mysql.beginTransaction();
         try {
-            // this.checkRaceData(raceData, 'insert');
+            let raceCountSql = 'SELECT COUNT(race_id) as count from race WHERE race_time = "' + this.app.moment(raceData.race_time).format('YYYY-MM-DD 00:00:00') + '"';
+            let raceCount = await conn.query(raceCountSql);
+            let count = raceCount[0].count + 1;
             let raceTableData = {
                 league_id: raceData.league_id,
                 race_time: new Date(raceData.race_time).toLocaleString(),
                 race_name: raceData.league_name + '_比赛_' + new Date().toLocaleDateString(),
-                created_time: this.app.moment().format('YYYY-MM-DD H:m:s'),
-                updated_time: this.app.moment().format('YYYY-MM-DD H:m:s'),
+                race_order: '第' + count + '场比赛',
                 race_status: 0
             };
             let race = await conn.insert('race', raceTableData);
