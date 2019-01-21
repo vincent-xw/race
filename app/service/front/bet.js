@@ -91,7 +91,7 @@ class BetService extends Service {
                     horse_id: element.horse_id,
                     agent_id: betData.agent_id,
                     bet_time,
-                    all_count: (parseInt(element.bet_head) + parseInt(element.bet_foot)) * this.config.sys.ticket
+                    all_count: (parseInt(element.bet_head, 10) + parseInt(element.bet_foot, 10)) * this.config.sys.ticket
                 });
                 let horse_info = await conn.get('horse', {
                     horse_id: element.horse_id
@@ -140,7 +140,8 @@ class BetService extends Service {
      */
     async getBetDetail(betData) {
         try {
-            let query = 'select * from bet left join horse on bet.horse_id = horse.horse_id where bet.bet_id = '
+            let query = 'select DISTINCT(bet.bet_id), bet.race_id, horse_name, bet_head, bet_foot,horse_score, win_count \
+                        from bet left join horse on bet.horse_id = horse.horse_id where bet.bet_id = '
                         + betData.bet_id;
             let betDetailResult = await this.app.mysql.query(query);
             if (betDetailResult || betDetailResult !== null) {
@@ -155,13 +156,13 @@ class BetService extends Service {
                 let bet_detail = [];
                 betDetailResult.map(item => {
                     bet_detail.push({
-                        ...item,
-                        race_info: {
-                            ...raceResult
-                        }
+                        ...item
                     });
                 });
                 return {
+                    race_info: {
+                        ...raceResult
+                    },
                     bet_detail: bet_detail
                 };
             }
