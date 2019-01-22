@@ -360,7 +360,9 @@ class RaceService extends Service {
                 for (let index = 0; index < betInfo.length; index++) {
                     const element = betInfo[index];
                     element.head_win_count = element.bet_head * first_head_odds;
+                    element.foot_win_count = element.bet_foot * first_foot_odds;
                     element.win_count += element.head_win_count;
+                    element.win_count += element.foot_win_count;
                     let post = {
                         ...element
                     };
