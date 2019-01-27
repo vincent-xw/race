@@ -39,10 +39,10 @@ class BetService extends Service {
                 limit = ' limit 10 offset 0';
             }
             if (options !== '') {
-                this.app.mysql.escape(query += ' where' + options + agent + limit );
+                this.app.mysql.escape(query += ' where' + options + agent + limit);
             }
             else {
-                this.app.mysql.escape(query += ' ' + limit );
+                this.app.mysql.escape(query += ' ' + limit);
             }
             // console.log(query);
             let betResult = await this.app.mysql.query(query);
