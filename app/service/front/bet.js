@@ -140,7 +140,7 @@ class BetService extends Service {
      */
     async getBetDetail(betData) {
         try {
-            let query = 'select DISTINCT(bet.bet_id), bet.race_id, horse_name, bet_head, bet_foot,horse_score, win_count \
+            let query = 'select DISTINCT(bet.bet_id), bet.race_id, horse_name, bet_head, bet_foot, horse_score, all_count, win_count \
                         from bet left join horse on bet.horse_id = horse.horse_id where bet.bet_id = '
                         + betData.bet_id;
             let betDetailResult = await this.app.mysql.query(query);
@@ -148,7 +148,6 @@ class BetService extends Service {
                 let raceResult = {};
                 if (betDetailResult.length !== 0) {
                     let race_id = betDetailResult[0].race_id;
-
                     raceResult = await this.app.mysql.get('race', {
                         race_id
                     });
