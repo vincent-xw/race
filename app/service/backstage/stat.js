@@ -14,7 +14,8 @@ class StatService extends Service {
                 start_time = this.app.moment(),
                 end_time = this.app.moment().format('YYYY-01-01'),
                 league_id = '',
-                type = 'year'
+                type = 'year',
+                id = ''
             } = statData;
             // 获取时间参数
             start_time = this.app.moment.isMoment(start_time) ? start_time : this.app.moment(start_time);
@@ -29,11 +30,14 @@ class StatService extends Service {
             let formatStr = type === 'year' ? '%Y' : type === 'month' ? '%Y%m' : '%Y%m%d';
             let fields = 'DATE_FORMAT(bet_time,\''
                         + formatStr + '\') AS bet_time, sum(all_count) AS all_count, sum(win_count) AS win_count';
-            let sqlQuery = 'from bet left join league on bet.league_id = league.league_id where bet_time between \''
+            let sqlQuery = 'from bet left join league on bet.league_id = league.league_id left join agent on bet.agent_id = agent.id where bet_time between \''
                             + start_time + '\' and \'' + end_time + '\'';
             if (league_id) {
                 fields += ', league_name ';
                 sqlQuery += ' and league.league_id = ' + league_id;
+            }
+            if (id) {
+                sqlQuery += ' and agent.id = ' + id;
             }
             sqlQuery = 'select ' + fields + ' ' + sqlQuery + ' GROUP BY DATE_FORMAT(bet_time,\'' + formatStr + '\')';
             let statResult = await this.app.mysql.query(sqlQuery);
